@@ -1,0 +1,20 @@
+{
+    "name": "the-real-start/async-notifications",
+    "description": "Notification component to run async mail and push notifications sending.",
+    "type": "package",
+    "license": "GPLv3",
+    "authors": [
+        {
+            "name": "Alegz",
+            "email": "alegz@therealstart.com"
+        }
+    ],
+    "autoload" : {
+        "psr-4": {"TRS\\AsyncNotification\\": ""}
+    },
+    "minimum-stability": "stable",
+    "require": {
+        "videlalvaro/php-amqplib": "2.5.*",
+        "yiisoft/yii2-swiftmailer": " *"
+    }
+}
