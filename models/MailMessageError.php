@@ -10,12 +10,6 @@ use \TRS\AsyncNotification\models\base\MailMessageError as BaseMailMessageError;
  */
 class MailMessageError extends BaseMailMessageError
 {
-	public static function getDb()
-	{
-		//Replace it when moving model to separate application
-		return Yii::$app->notification_db;
-	}
-
 	public static function tableName()
 	{
 		return '{{%' . parent::tableName() . '}}';

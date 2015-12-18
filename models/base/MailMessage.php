@@ -9,14 +9,15 @@ use Yii;
  *
  * @property integer $id
  * @property string $status
+ * @property string $subject
  * @property string $from
  * @property string $body_text
  * @property string $body_html
  * @property string $created_at
  * @property string $updated_at
  *
- * @property \notification\models\MailAttachment[] $mailAttachments
- * @property \notification\models\MailRecipient[] $mailRecipients
+ * @property \TRS\AsyncNotification\models\MailAttachment[] $mailAttachments
+ * @property \TRS\AsyncNotification\models\MailRecipient[] $mailRecipients
  */
 class MailMessage extends \yii\db\ActiveRecord
 {
@@ -35,10 +36,10 @@ class MailMessage extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['from', 'body_text', 'body_html'], 'required'],
+            [['from', 'subject', 'body_text', 'body_html'], 'required'],
             [['body_text', 'body_html'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
-            [['status', 'from'], 'string', 'max' => 255]
+            [['status', 'subject', 'from'], 'string', 'max' => 255]
         ];
     }
 
@@ -50,6 +51,7 @@ class MailMessage extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'status' => Yii::t('app', 'Status'),
+            'subject' => Yii::t('app', 'Subject'),
             'from' => Yii::t('app', 'From'),
             'body_text' => Yii::t('app', 'Body Text'),
             'body_html' => Yii::t('app', 'Body Html'),
@@ -63,7 +65,7 @@ class MailMessage extends \yii\db\ActiveRecord
      */
     public function getMailAttachments()
     {
-        return $this->hasMany(\notification\models\MailAttachment::className(), ['message_id' => 'id']);
+        return $this->hasMany(\TRS\AsyncNotification\models\MailAttachment::className(), ['message_id' => 'id']);
     }
 
     /**
@@ -71,7 +73,7 @@ class MailMessage extends \yii\db\ActiveRecord
      */
     public function getMailRecipients()
     {
-        return $this->hasMany(\notification\models\MailRecipient::className(), ['message_id' => 'id']);
+        return $this->hasMany(\TRS\AsyncNotification\models\MailRecipient::className(), ['message_id' => 'id']);
     }
 
 

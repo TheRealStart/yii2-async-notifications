@@ -12,7 +12,7 @@ use Yii;
  * @property string $sending_at
  * @property string $error
  *
- * @property \notification\models\MailMessage $message
+ * @property \TRS\AsyncNotification\models\MailMessage $message
  */
 class MailMessageError extends \yii\db\ActiveRecord
 {
@@ -58,7 +58,7 @@ class MailMessageError extends \yii\db\ActiveRecord
      */
     public function getMessage()
     {
-        return $this->hasOne(\notification\models\MailMessage::className(), ['id' => 'message_id']);
+        return $this->hasOne(\TRS\AsyncNotification\models\MailMessage::className(), ['id' => 'message_id']);
     }
 
 

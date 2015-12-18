@@ -13,8 +13,10 @@ use TRS\AsyncNotification\models\forms\Message;
 
 interface MailProviderInterface {
 	/**
-	 * @param Message $params
-	 * @return boolean
+	 * @param $templateName
+	 * @param array $recipients
+	 * @param array $data
+	 * @return mixed
 	 */
-	public function send(Message $params);
+	public function send($templateName, array $recipients, array $data = []);
 } 
