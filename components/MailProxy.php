@@ -9,15 +9,18 @@
 namespace TRS\AsyncNotification\components;
 
 
-use TRS\AsyncNotification\components\providers\MailerProvider;
+use TRS\AsyncNotification\components\providers\Mailer;
 use TRS\AsyncNotification\components\providers\MailProviderInterface;
 use TRS\AsyncNotification\models\forms\Message;
 
 class MailProxy implements MailProviderInterface {
+	/** @var  MailProxy */
+	private static $instance;
+
 	private $mailer;
 
 	private function __construct() {
-		$this->mailer = new MailerProvider();
+		$this->mailer = new Mailer();
 	}
 
 	/**
@@ -26,5 +29,12 @@ class MailProxy implements MailProviderInterface {
 	 */
 	public function send(Message $params) {
 		return $this->mailer->send($params);
+	}
+
+	public static function getInstance() {
+		if (!isset(static::$instance))
+			static::$instance = new MailProxy();
+
+		return static::$instance;
 	}
 }

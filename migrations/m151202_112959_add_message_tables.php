@@ -2,7 +2,7 @@
 
 use yii\db\Schema;
 use yii\db\Migration;
-use common\enums\MailStatus;
+use TRS\AsyncNotification\components\enums\MailStatus;
 
 class m151202_112959_add_message_tables extends Migration
 {
@@ -29,7 +29,7 @@ class m151202_112959_add_message_tables extends Migration
 		$this->createTable('{{%mail_attachment}}', [
 			'id' => Schema::TYPE_PK,
 			'message_id' => Schema::TYPE_INTEGER,
-			'name' => Schema::TYPE_STRING,
+			'name' => Schema::TYPE_STRING . '(2048)',
 			'created_at' => Schema::TYPE_TIMESTAMP
 		], 'ENGINE=InnoDB DEFAULT CHARSET=utf8');
 

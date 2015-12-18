@@ -12,7 +12,7 @@ use Yii;
  * @property string $name
  * @property string $created_at
  *
- * @property \notification\models\MailMessage $message
+ * @property \TRS\AsyncNotification\models\MailMessage $message
  */
 class MailAttachment extends \yii\db\ActiveRecord
 {
@@ -35,7 +35,7 @@ class MailAttachment extends \yii\db\ActiveRecord
         return [
             [['message_id'], 'integer'],
             [['created_at'], 'safe'],
-            [['name'], 'string', 'max' => 255]
+            [['name'], 'string', 'max' => 2048]
         ];
     }
 
@@ -57,7 +57,7 @@ class MailAttachment extends \yii\db\ActiveRecord
      */
     public function getMessage()
     {
-        return $this->hasOne(\notification\models\MailMessage::className(), ['id' => 'message_id']);
+        return $this->hasOne(\TRS\AsyncNotification\models\MailMessage::className(), ['id' => 'message_id']);
     }
 
 

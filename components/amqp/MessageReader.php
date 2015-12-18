@@ -67,7 +67,11 @@ abstract class MessageReader extends Object implements interfaces\MessageReader
         return true;
     }
 
-    public function getMessageBody(AMQPMessage $msg)
+	/**
+	 * @param AMQPMessage $msg
+	 * @return mixed|null
+	 */
+	public function getMessageBody(AMQPMessage $msg)
     {
         try{
             $result = Json::decode($msg->body);
@@ -85,5 +89,5 @@ abstract class MessageReader extends Object implements interfaces\MessageReader
 		return null;
     }
 
-	public abstract function read(AMQPMessage $msg);
+	public abstract function read(AMQPMessage $amqpMessage);
 }

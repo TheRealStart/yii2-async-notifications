@@ -10,7 +10,7 @@ use Yii;
  * @property integer $message_id
  * @property string $email
  *
- * @property \notification\models\MailMessage $message
+ * @property \TRS\AsyncNotification\models\MailMessage $message
  */
 class MailRecipient extends \yii\db\ActiveRecord
 {
@@ -52,7 +52,7 @@ class MailRecipient extends \yii\db\ActiveRecord
      */
     public function getMessage()
     {
-        return $this->hasOne(\notification\models\MailMessage::className(), ['id' => 'message_id']);
+        return $this->hasOne(\TRS\AsyncNotification\models\MailMessage::className(), ['id' => 'message_id']);
     }
 
 

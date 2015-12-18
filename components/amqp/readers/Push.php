@@ -13,7 +13,7 @@ use TRS\AsyncNotification\components\amqp\MessageReader;
 use PhpAmqpLib\Message\AMQPMessage;
 
 class Push extends MessageReader{
-	public function read(AMQPMessage $msg)
+	public function read(AMQPMessage $amqpMessage)
 	{
 	}
 } 

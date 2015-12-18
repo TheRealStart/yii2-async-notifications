@@ -11,12 +11,6 @@ use yii\db\Connection;
  */
 class MailMessage extends BaseMailMessage
 {
-	public static function getDb()
-	{
-		//Replace it when moving model to separate application
-		return Yii::$app->notification_db;
-	}
-
 	public static function tableName()
 	{
 		return '{{%' . parent::tableName() . '}}';
