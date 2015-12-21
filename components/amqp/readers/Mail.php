@@ -17,7 +17,6 @@ use TRS\AsyncNotification\models\MailMessage;
 use TRS\AsyncNotification\models\MailRecipient;
 use Yii;
 use yii\base\ErrorException;
-use yii\swiftmailer\Message;
 
 class Mail extends MessageReader implements \TRS\AsyncNotification\components\amqp\interfaces\MessageReader {
 
@@ -33,9 +32,12 @@ class Mail extends MessageReader implements \TRS\AsyncNotification\components\am
 
 	public function read(AMQPMessage $amqpMessage)
 	{
-		$message = new Message();
+		$mailProxy = MailProxy::getInstance();
+		$message = $mailProxy->getEmptyMessage();
 		$data = $this->getMessageBody($amqpMessage);
 		$messageId = $data['id'];
+
+		echo 'Processing message id: ' . $messageId . PHP_EOL;
 
 		/** @var MailMessage $messageData */
 		$messageData = MailMessage::find()->where(['id' => $messageId])->one();
@@ -46,7 +48,7 @@ class Mail extends MessageReader implements \TRS\AsyncNotification\components\am
 		}
 
 		/** @var MailRecipient[] $recipients */
-		$recipients = $messageData->getMailRecipients();
+		$recipients = $messageData->getMailRecipients()->all();
 
 		if (empty($recipients)) {
 			$this->nack($amqpMessage, false);
@@ -72,7 +74,7 @@ class Mail extends MessageReader implements \TRS\AsyncNotification\components\am
 			$message->setHtmlBody($messageData->body_html);
 
 		/** @var MailAttachment $attachments */
-		$attachments = $messageData->getMailAttachments();
+		$attachments = $messageData->getMailAttachments()->all();
 
 		if (!empty($attachments)) {
 			foreach ($attachments as $attachment) {
@@ -81,7 +83,6 @@ class Mail extends MessageReader implements \TRS\AsyncNotification\components\am
 			}
 		}
 
-//		$mailProxy = MailProxy::getInstance();
-//		$mailProxy->send();
+		$mailProxy->send($message);
 	}
 } 

@@ -9,9 +9,10 @@
 namespace TRS\AsyncNotification\components;
 
 
-use TRS\AsyncNotification\components\providers\Mailer;
+use Yii;
 use TRS\AsyncNotification\components\providers\MailProviderInterface;
-use TRS\AsyncNotification\models\forms\Message;
+use yii\mail\BaseMessage;
+use yii\swiftmailer\Message;
 
 class MailProxy implements MailProviderInterface {
 	/** @var  MailProxy */
@@ -20,16 +21,31 @@ class MailProxy implements MailProviderInterface {
 	private $mailer;
 
 	private function __construct() {
-		$this->mailer = new Mailer();
+		$this->mailer = Yii::$app->getMailer();
 	}
 
 	/**
-	 * @param Message $params
-	 * @return bool|void
+	 * @inheritdoc
 	 */
-	public function send(Message $params) {
-		return $this->mailer->send($params);
+	public function send(BaseMessage $message) {
+		return $this->mailer->send($message);
 	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function sendMultiple(array $messages)
+	{
+		return $this->mailer->sendMultiple($messages);
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function getEmptyMessage() {
+		return new Message();
+	}
+
 
 	public static function getInstance() {
 		if (!isset(static::$instance))
