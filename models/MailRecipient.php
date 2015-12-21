@@ -19,7 +19,10 @@ class MailRecipient extends BaseMailRecipient
 	public function rules () {
 		return ArrayHelper::merge(
 			parent::rules(),
-			[['email'], 'email', 'skipOnEmpty' => false]
+			[
+				[['message_id', 'email'], 'required'],
+				[['email'], 'email', 'skipOnEmpty' => false]
+			]
 		);
 	}
 }
