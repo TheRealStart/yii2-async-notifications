@@ -24,8 +24,8 @@ class MailParameters extends Model {
 
 	public function rules () {
 		return [
-			[['from'], 'required'],
-			[['from'], 'email', 'skipInEmpty' => false]
+			[['from', 'subjectCategory', 'viewPath'], 'required'],
+			[['from'], 'email', 'skipOnEmpty' => false]
 		];
 	}
 } 
