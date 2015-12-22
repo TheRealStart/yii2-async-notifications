@@ -17,10 +17,13 @@ use Yii;
  * @property string $updated_at
  *
  * @property \TRS\AsyncNotification\models\MailAttachment[] $mailAttachments
+ * @property \TRS\AsyncNotification\models\MailMessageError[] $mailMessageErrors
  * @property \TRS\AsyncNotification\models\MailRecipient[] $mailRecipients
  */
 class MailMessage extends \yii\db\ActiveRecord
 {
+
+
 
     /**
      * @inheritdoc
@@ -36,7 +39,7 @@ class MailMessage extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['from', 'subject', 'body_text', 'body_html'], 'required'],
+            [['subject', 'from', 'body_text', 'body_html'], 'required'],
             [['body_text', 'body_html'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
             [['status', 'subject', 'from'], 'string', 'max' => 255]
@@ -66,6 +69,14 @@ class MailMessage extends \yii\db\ActiveRecord
     public function getMailAttachments()
     {
         return $this->hasMany(\TRS\AsyncNotification\models\MailAttachment::className(), ['message_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMailMessageErrors()
+    {
+        return $this->hasMany(\TRS\AsyncNotification\models\MailMessageError::className(), ['message_id' => 'id']);
     }
 
     /**

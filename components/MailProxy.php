@@ -9,12 +9,12 @@
 namespace TRS\AsyncNotification\components;
 
 
+use TRS\AsyncNotification\components\interfaces\Mailer;
 use Yii;
-use TRS\AsyncNotification\components\providers\MailProviderInterface;
 use yii\mail\BaseMessage;
 use yii\swiftmailer\Message;
 
-class MailProxy implements MailProviderInterface {
+class MailProxy implements Mailer {
 	/** @var  MailProxy */
 	private static $instance;
 

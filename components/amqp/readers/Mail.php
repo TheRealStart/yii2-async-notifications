@@ -37,8 +37,6 @@ class Mail extends MessageReader implements \TRS\AsyncNotification\components\am
 		$data = $this->getMessageBody($amqpMessage);
 		$messageId = $data['id'];
 
-		echo 'Processing message id: ' . $messageId . PHP_EOL;
-
 		/** @var MailMessage $messageData */
 		$messageData = MailMessage::find()->where(['id' => $messageId])->one();
 
@@ -56,9 +54,11 @@ class Mail extends MessageReader implements \TRS\AsyncNotification\components\am
 		}
 
 		$message->setFrom([$messageData->from]);
+		$message->setSubject($messageData->subject);
 
-		foreach ($recipients as $recipient)
-			$message->setTo($recipient->email);
+		foreach ($recipients as $recipient) {
+			$message->setTo([$recipient->email => $recipient->name]);
+		}
 
 		if (empty($messageData->body_text) && empty($messageData->body_html)) {
 			$this->nack($amqpMessage, false);

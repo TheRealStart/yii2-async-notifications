@@ -6,14 +6,14 @@
  * Time: 5:27 PM
  */
 
-namespace TRS\AsyncNotification\components\providers;
+namespace TRS\AsyncNotification\components\interfaces;
 
 
 use yii\mail\BaseMessage;
 
 
 /**
- * Interface MailProviderInterface
+ * Interface Provider
  * @package TRS\AsyncNotification\components\providers
  *
  * This interface was build because MailerInterface provided by Yii contains compose method,
@@ -22,7 +22,7 @@ use yii\mail\BaseMessage;
  * I do not need it in this case because messages are already rendered to database and just required
  * to be set correctly in message object that can be build without compose method.
  */
-interface MailProviderInterface {
+interface Mailer {
 	/**
 	 * @param BaseMessage $message
 	 * @return bool
