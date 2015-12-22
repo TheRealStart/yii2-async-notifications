@@ -10,12 +10,12 @@ namespace TRS\AsyncNotification\components;
 
 
 use Yii;
-use TRS\AsyncNotification\components\providers\MailProviderInterface;
+use TRS\AsyncNotification\components\providers\Provider;
 use yii\mail\BaseMessage;
 use yii\swiftmailer\Message;
 
-class MailProxy implements MailProviderInterface {
-	/** @var  MailProxy */
+class Proxy implements Provider {
+	/** @var  Proxy */
 	private static $instance;
 
 	private $mailer;
@@ -49,7 +49,7 @@ class MailProxy implements MailProviderInterface {
 
 	public static function getInstance() {
 		if (!isset(static::$instance))
-			static::$instance = new MailProxy();
+			static::$instance = new Proxy();
 
 		return static::$instance;
 	}

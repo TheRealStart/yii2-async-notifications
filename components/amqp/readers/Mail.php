@@ -11,7 +11,7 @@ namespace TRS\AsyncNotification\components\amqp\readers;
 
 use PhpAmqpLib\Message\AMQPMessage;
 use TRS\AsyncNotification\components\amqp\MessageReader;
-use TRS\AsyncNotification\components\MailProxy;
+use TRS\AsyncNotification\components\Proxy;
 use TRS\AsyncNotification\models\MailAttachment;
 use TRS\AsyncNotification\models\MailMessage;
 use TRS\AsyncNotification\models\MailRecipient;
@@ -32,12 +32,10 @@ class Mail extends MessageReader implements \TRS\AsyncNotification\components\am
 
 	public function read(AMQPMessage $amqpMessage)
 	{
-		$mailProxy = MailProxy::getInstance();
+		$mailProxy = Proxy::getInstance();
 		$message = $mailProxy->getEmptyMessage();
 		$data = $this->getMessageBody($amqpMessage);
 		$messageId = $data['id'];
-
-		echo 'Processing message id: ' . $messageId . PHP_EOL;
 
 		/** @var MailMessage $messageData */
 		$messageData = MailMessage::find()->where(['id' => $messageId])->one();
@@ -56,6 +54,7 @@ class Mail extends MessageReader implements \TRS\AsyncNotification\components\am
 		}
 
 		$message->setFrom([$messageData->from]);
+		$message->setSubject($messageData->subject);
 
 		foreach ($recipients as $recipient)
 			$message->setTo($recipient->email);
