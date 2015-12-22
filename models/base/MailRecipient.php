@@ -9,6 +9,7 @@ use Yii;
  *
  * @property integer $message_id
  * @property string $email
+ * @property string $name
  *
  * @property \TRS\AsyncNotification\models\MailMessage $message
  */
@@ -31,8 +32,9 @@ class MailRecipient extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['message_id', 'email'], 'required'],
             [['message_id'], 'integer'],
-            [['email'], 'string', 'max' => 255]
+            [['email', 'name'], 'string', 'max' => 255]
         ];
     }
 
@@ -44,6 +46,7 @@ class MailRecipient extends \yii\db\ActiveRecord
         return [
             'message_id' => Yii::t('app', 'Message ID'),
             'email' => Yii::t('app', 'Email'),
+            'name' => Yii::t('app', 'Name'),
         ];
     }
 

@@ -11,7 +11,7 @@ namespace TRS\AsyncNotification\components\amqp\readers;
 
 use PhpAmqpLib\Message\AMQPMessage;
 use TRS\AsyncNotification\components\amqp\MessageReader;
-use TRS\AsyncNotification\components\Proxy;
+use TRS\AsyncNotification\components\MailProxy;
 use TRS\AsyncNotification\models\MailAttachment;
 use TRS\AsyncNotification\models\MailMessage;
 use TRS\AsyncNotification\models\MailRecipient;
@@ -32,7 +32,7 @@ class Mail extends MessageReader implements \TRS\AsyncNotification\components\am
 
 	public function read(AMQPMessage $amqpMessage)
 	{
-		$mailProxy = Proxy::getInstance();
+		$mailProxy = MailProxy::getInstance();
 		$message = $mailProxy->getEmptyMessage();
 		$data = $this->getMessageBody($amqpMessage);
 		$messageId = $data['id'];
@@ -56,8 +56,9 @@ class Mail extends MessageReader implements \TRS\AsyncNotification\components\am
 		$message->setFrom([$messageData->from]);
 		$message->setSubject($messageData->subject);
 
-		foreach ($recipients as $recipient)
-			$message->setTo($recipient->email);
+		foreach ($recipients as $recipient) {
+			$message->setTo([$recipient->email => $recipient->name]);
+		}
 
 		if (empty($messageData->body_text) && empty($messageData->body_html)) {
 			$this->nack($amqpMessage, false);

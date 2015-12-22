@@ -13,9 +13,8 @@ interface Provider {
 	/**
 	 * @param string $template
 	 * @param array $data
-	 * @return void
 	 */
-	public function _construct($template, array $data = []);
+	public function __construct($template, array $data = []);
 
 	/**
 	 * @param array $recipient

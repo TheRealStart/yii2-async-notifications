@@ -21,7 +21,7 @@ use yii\helpers\ArrayHelper;
 use yii\web\View;
 use Yii;
 
-class Mailer implements  Provider
+class Mailer implements Provider
 {
 	private $template;
 
@@ -35,7 +35,7 @@ class Mailer implements  Provider
 
 	private $embeded;
 
-	public function _construct($template, array $data = [])
+	public function __construct($template, array $data = [])
 	{
 		$this->template = $template;
 		$this->data = $data;
@@ -132,7 +132,7 @@ class Mailer implements  Provider
 		$bodyHtml = $view->render($viewPath . '/' . $templateAlias . '.html.php', $this->data);
 		$subject  = Yii::t($subjectCategory, $this->template, $this->subjectData);
 
-		if ( empty( $recipients ) )
+		if ( empty( $this->rcptTo ) )
 			throw new \InvalidArgumentException( 'Recipients list is blank' );
 
 		$message->load([
@@ -149,10 +149,11 @@ class Mailer implements  Provider
 				'Failed to save message with errors: ' . Error::processToString($message->getErrors()) );
 		}
 
-		foreach ( $recipients as $recipient ) {
+		foreach ( $this->rcptTo as $email => $name ) {
 			$model             = new MailRecipient();
 			$model->message_id = $message->id;
-			$model->email      = $recipient;
+			$model->email      = $email;
+			$model->name       = $name;
 
 			if ( !$model->save() ) {
 				MailRecipient::deleteAll(['message_id' => $message->id]);
@@ -160,7 +161,7 @@ class Mailer implements  Provider
 
 				throw new \InvalidArgumentException(
 					sprintf('Failed to add recipient "%s" with error: "%s"',
-						$recipient, implode(', ', $model->getErrors(['email']))) );
+						$email, implode(', ', $model->getErrors(['email']))) );
 			}
 
 			$messageRecipients[] = $model;

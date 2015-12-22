@@ -20,8 +20,9 @@ class m151202_112959_add_message_tables extends Migration
 		], 'ENGINE=InnoDB DEFAULT CHARSET=utf8');
 
 		$this->createTable('{{%mail_recipient}}', [
-			'message_id' => Schema::TYPE_INTEGER,
-			'email' => Schema::TYPE_STRING,
+			'message_id' => Schema::TYPE_INTEGER . ' NOT NULL',
+			'email' => Schema::TYPE_STRING . ' NOT NULL',
+			'name' => Schema::TYPE_STRING
 		], 'ENGINE=InnoDB DEFAULT CHARSET=utf8');
 
 		$this->addForeignKey('{{%mail_message_recipient_fk}}', '{{%mail_recipient}}', 'message_id', '{{%mail_message}}', 'id', 'RESTRICT', 'CASCADE');
