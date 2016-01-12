@@ -36,7 +36,7 @@ class RabbitController extends Controller
         foreach($this->interpreters as $key => $value)
             $channel->queue_declare($key, false, true, false, true);
 
-        $channel->exchange_declare(Yii::$app->amqp->exchange, Amqp::TYPE_DIRECT, false, true, false);
+        $channel->exchange_declare(Yii::$app->amqp->exchange, Yii::$app->amqp->exchangeType, false, true, false);
 
         foreach($this->interpreters as $key => $value)
             $channel->queue_bind($key, Yii::$app->amqp->exchange, $key);

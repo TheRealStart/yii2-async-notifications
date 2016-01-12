@@ -27,6 +27,7 @@ class Amqp extends Component
     const TYPE_DIRECT = 'direct';
     const TYPE_HEADERS = 'headers';
     const TYPE_FANOUT = 'fanout';
+    const TYPE_X_DELAYED_MESSAGE = 'x-delayed-message';
 
     /**
      * @var AMQPStreamConnection
@@ -69,6 +70,16 @@ class Amqp extends Component
     public $exchange = 'smart-city';
 
     /**
+     * @var string
+     */
+    public $exchangeType = 'direct';
+
+    /**
+     * @var array
+     */
+    public $exchangeArgs = [];
+
+    /**
      * @inheritdoc
      */
     public function init()
@@ -104,7 +115,7 @@ class Amqp extends Component
         $channel = $connection->channel();
 
         $channel->queue_declare($queue, false, true, false, true);
-        $channel->exchange_declare($this->exchange, self::TYPE_DIRECT, false, true, false);
+        $channel->exchange_declare($this->exchange, $this->exchangeType, false, true, false);
         $channel->queue_bind($queue, $this->exchange, $queue);
 
         $msg = new AMQPMessage(Json::encode($message));
