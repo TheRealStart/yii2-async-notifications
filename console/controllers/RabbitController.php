@@ -29,17 +29,18 @@ class RabbitController extends Controller
     }
     public function actionRun()
     {
-        /** @var AMQPStreamConnection $connection */
-        $connection = Yii::$app->amqp->getConnection();
+        /** @var Amqp $amqp */
+        $amqp = Yii::$app->amqp;
+        $connection = $amqp->getConnection();
         $channel = $connection->channel();
 
         foreach($this->interpreters as $key => $value)
             $channel->queue_declare($key, false, true, false, true);
 
-        $channel->exchange_declare(Yii::$app->amqp->exchange, Amqp::TYPE_DIRECT, false, true, false);
+        $channel->exchange_declare($amqp->exchange, $amqp->exchangeType, false, true, false, false, false, $amqp->exchangeArgs);
 
         foreach($this->interpreters as $key => $value)
-            $channel->queue_bind($key, Yii::$app->amqp->exchange, $key);
+            $channel->queue_bind($key, $amqp->exchange, $key);
 
         foreach($this->interpreters as $key => $value)
             $channel->basic_consume($key, '', false, false, false, false, [$this, 'callback']);
