@@ -12,127 +12,33 @@ namespace TRS\AsyncNotification\components\providers;
 use TRS\AsyncNotification\components\enums\NotificationQueue;
 use TRS\AsyncNotification\components\helpers\Error;
 use TRS\AsyncNotification\components\helpers\NotificationHelper;
-use TRS\AsyncNotification\components\interfaces\Provider;
 use TRS\AsyncNotification\models\base\MailMessage;
 use TRS\AsyncNotification\models\MailRecipient;
 use yii\base\ErrorException;
-use yii\base\NotSupportedException;
-use yii\helpers\ArrayHelper;
 use yii\web\View;
 use Yii;
 
-class Mailer implements Provider
+class Mailer implements MailProviderInterface
 {
-	private $template;
-
-	private $data;
-
-	private $subjectData = [];
-
-	private $rcptTo = [];
-
-	private $attachment;
-
-	private $embeded;
-
-	public function __construct($template, array $data = [])
-	{
-		$this->template = $template;
-		$this->data = $data;
-
-		$this->buildSubjectData();
-	}
-
-	/**
-	 * @param array $data
-	 *
-	 * Reads data from parameters or from data attribute in object and
-	 * filters none-string data.
-	 *
-	 * Result stored in subjectData.
-	 */
-	private function buildSubjectData(array $data = []) {
-		$processData = $data;
-
-		if (empty($processData)) {
-			$processData = $this->data;
-		}
-
-		foreach ($processData as $key => $item) {
-			if (!is_string($item))
-				unset($processData[$key]);
-		}
-
-		$this->subjectData = ArrayHelper::merge($this->subjectData,
-			$processData);
-	}
-
 	/**
 	 * @inheritdoc
 	 */
-	public function addTo(array $recipients)
-	{
-		foreach ($recipients as $key => $value) {
-			if (filter_var($key, FILTER_VALIDATE_EMAIL)) {
-				$this->rcptTo[$key] = $value;
-				continue;
-			}
-
-			if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
-				throw new \InvalidArgumentException(
-					'Invalid recipient provided. Recepients format is ["email" => "name", "email2" => "name2"] or ["email@email.em", "email2@email.em"]. Nor key nor value are valid email');
-			}
-
-			$this->rcptTo[$value] = '';
-		}
-	}
-
-	/**
-	 * @inheritdoc
-	 */
-	public function attach($path)
-	{
-		//TODO add attachment processing
-		throw new NotSupportedException();
-	}
-
-	/**
-	 * @inheritdoc
-	 */
-	public function embed($path)
-	{
-		//TODO add embeded processing
-		throw new NotSupportedException();
-	}
-
-	/**
-	 * @inheritdoc
-	 */
-	public function addData(array $data)
-	{
-		ArrayHelper::merge($this->data, $data);
-		$this->buildSubjectData($data);
-	}
-
-	/**
-	 * @inheritdoc
-	 */
-	public function send()
+	public function send($templateName, array $recipients, array $data = [])
 	{
 		$message           = new MailMessage();
 		$params            = NotificationHelper::getMailParams();
-		$templateAlias     = str_replace('.', '/', $this->template);
+		$templateAlias     = str_replace('.', '/', $templateName);
 		$messageRecipients = [];
 		$viewPath          = $params->viewPath;
 		$subjectCategory   = $params->subjectCategory;
 
 		/** @var View $view */
 		$view     = Yii::$app->getView();
-		$bodyText = $view->render($viewPath . '/' . $templateAlias . '.txt.php', $this->data);
-		$bodyHtml = $view->render($viewPath . '/' . $templateAlias . '.html.php', $this->data);
-		$subject  = Yii::t($subjectCategory, $this->template, $this->subjectData);
+		$bodyText = $view->render($viewPath . '/' . $templateAlias . '.txt.php');
+		$bodyHtml = $view->render($viewPath . '/' . $templateAlias . '.html.php');
+		$subject  = Yii::t($subjectCategory, $templateName);
 
-		if ( empty( $this->rcptTo ) )
+		if ( empty( $recipients ) )
 			throw new \InvalidArgumentException( 'Recipients list is blank' );
 
 		$message->load([
@@ -144,24 +50,23 @@ class Mailer implements Provider
 			]
 		]);
 
-		if ( !$message->save() ) {
+		if ( $message->save() ) {
 			throw new ErrorException(
 				'Failed to save message with errors: ' . Error::processToString($message->getErrors()) );
 		}
 
-		foreach ( $this->rcptTo as $email => $name ) {
+		foreach ( $recipients as $recipient ) {
 			$model             = new MailRecipient();
 			$model->message_id = $message->id;
-			$model->email      = $email;
-			$model->name       = $name;
+			$model->email      = $recipient;
 
-			if ( !$model->save() ) {
+			if ( !$model->save(['email']) ) {
 				MailRecipient::deleteAll(['message_id' => $message->id]);
 				$message->delete();
 
 				throw new \InvalidArgumentException(
 					sprintf('Failed to add recipient "%s" with error: "%s"',
-						$email, implode(', ', $model->getErrors(['email']))) );
+						$recipient, implode(', ', $model->getErrors(['email']))) );
 			}
 
 			$messageRecipients[] = $model;
