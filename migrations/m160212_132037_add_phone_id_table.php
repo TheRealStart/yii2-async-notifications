@@ -11,7 +11,7 @@ class m160212_132037_add_phone_id_table extends Migration
         $this->createTable(static::PUSH_DEVICE, [
             'id' => Schema::TYPE_PK,
             'type' => Schema::TYPE_STRING . ' NOT NULL',
-            'device_id' => Schema::TYPE_STRING . '(128) NOT NULL',
+            'device_id' => Schema::TYPE_STRING . '(255) NOT NULL',
             'owner_id' => Schema::TYPE_STRING . ' DEFAULT NULL',
             'created_at' => Schema::TYPE_TIMESTAMP . ' NOT NULL'
         ]);

@@ -37,7 +37,7 @@ abstract class PushDevice extends \yii\db\ActiveRecord
             [['type', 'device_id'], 'required'],
             [['created_at'], 'safe'],
             [['type', 'owner_id'], 'string', 'max' => 255],
-            [['device_id'], 'string', 'max' => 128]
+            [['device_id'], 'string', 'max' => 255]
         ];
     }
 
