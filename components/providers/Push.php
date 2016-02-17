@@ -75,7 +75,7 @@ class Push implements Provider
         try {
             /** @var Gcm $gcm */
             $gcm = Yii::$app->gcm;
-            var_dump($gcm->sendMulti($this->gcmDevices, $this->text, $this->data));
+            $gcm->sendMulti($this->gcmDevices, $this->text, $this->data);
         } catch (UnknownPropertyException $error) {
 
         }
@@ -83,7 +83,7 @@ class Push implements Provider
         try {
             /** @var Apns $apns */
             $apns = Yii::$app->apns;
-            var_dump($apns->sendMulti($this->apnsDevices, $this->text, $this->data));
+            $apns->sendMulti($this->apnsDevices, $this->text, $this->data);
         } catch (UnknownPropertyException $error) {
 
         }
