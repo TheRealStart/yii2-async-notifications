@@ -73,17 +73,21 @@ class Push implements Provider
     public function send()
     {
         try {
-            /** @var Gcm $gcm */
-            $gcm = Yii::$app->gcm;
-            $gcm->sendMulti($this->gcmDevices, $this->text, $this->data);
+            if (!empty($this->gcmDevices)) {
+                /** @var Gcm $gcm */
+                $gcm = Yii::$app->gcm;
+                $gcm->sendMulti($this->gcmDevices, $this->text, $this->data);
+            }
         } catch (UnknownPropertyException $error) {
 
         }
 
         try {
-            /** @var Apns $apns */
-            $apns = Yii::$app->apns;
-            $apns->sendMulti($this->apnsDevices, $this->text, $this->data);
+            if (!empty($this->apnsDevices)) {
+                /** @var Apns $apns */
+                $apns = Yii::$app->apns;
+                $apns->sendMulti($this->apnsDevices, $this->text, $this->data);
+            }
         } catch (UnknownPropertyException $error) {
 
         }
