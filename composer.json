@@ -17,6 +17,6 @@
         "ext-curl": "*",
         "videlalvaro/php-amqplib": "2.6.0",
         "yiisoft/yii2-swiftmailer": " *",
-        "bryglen/yii2-apns-gcm": "1.0.3"
+        "bryglen/yii2-apns-gcm": "1.0.4"
     }
 }
