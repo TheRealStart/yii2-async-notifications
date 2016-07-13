@@ -15,7 +15,7 @@ use Yii;
 
 class UzInfocomSmsTransport implements SmsTransport {
 
-    public $url = 'https://91.212.89.137/mobile.php';
+    public $url;
     public $login;
     public $password;
 
