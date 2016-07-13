@@ -27,7 +27,7 @@ class SmsApi extends Component
 
     /**
      * @param SmsMessage $message
-     * @return string send status
+     * @return bool
      */
     public function send(SmsMessage $message)
     {
@@ -37,7 +37,7 @@ class SmsApi extends Component
             $rcpList[]=$model->getCleanPhone();
 
         Yii::info(sprintf('Sending sms "%s" to "%s"',$message->body_text, implode(', ',$rcpList)), __METHOD__);
-        return $this->getTransport()->send($message);
+        return $this->getTransport()->send($message)>0;
     }
 
     /**

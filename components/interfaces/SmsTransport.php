@@ -13,7 +13,7 @@ use TRS\AsyncNotification\models\SmsMessage;
 interface SmsTransport {
     /**
      * @param SmsMessage $message
-     * @return string one of \TRS\AsyncNotification\components\enums\SmsStatus constant
+     * @return int
      */
     public function send(SmsMessage $message);
 }

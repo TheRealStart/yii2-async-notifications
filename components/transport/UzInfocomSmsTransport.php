@@ -11,6 +11,7 @@ namespace TRS\AsyncNotification\components\transport;
 use TRS\AsyncNotification\components\interfaces\SmsTransport;
 use TRS\AsyncNotification\models\SmsMessage;
 use TRS\AsyncNotification\models\SmsRecipient;
+use Yii;
 
 class UzInfocomSmsTransport implements SmsTransport {
 
@@ -20,13 +21,14 @@ class UzInfocomSmsTransport implements SmsTransport {
 
     /**
      * @param SmsMessage $message
-     * @return string one of \TRS\AsyncNotification\components\enums\SmsStatus constant
+     * @return int
      */
     public function send(SmsMessage $message)
     {
+        $sent = 0;
         /** @var SmsRecipient $model */
         foreach ($message->getSmsRecipients()->all() as $model) {
-/*            $ch = curl_init($this->url);
+            $ch = curl_init($this->url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($ch, CURLOPT_POST, true);
@@ -39,7 +41,9 @@ class UzInfocomSmsTransport implements SmsTransport {
             $response = curl_exec($ch);
             $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
             curl_close($ch);
-*/
+
+            Yii::info(sprintf('Response %s Code %d', $response, $httpCode), __METHOD__);
         }
+        return $sent;
     }
 }

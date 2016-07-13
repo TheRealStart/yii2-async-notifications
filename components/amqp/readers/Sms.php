@@ -28,11 +28,16 @@ class Sms extends MessageReader{
 		$smsApi = Yii::$app->get('sms');
 
 		$message->try_count++;
-		if (($message->status = $smsApi->send($message)) == SmsStatus::ERROR){
+
+		if ($smsApi->send($message)){
+			$message->status = SmsStatus::SEND;
+		}else{
 			if ($message->try_count >= $smsApi->resendLimit)
 				$message->status = SmsStatus::CANCELED;
-			else
+			else {
+				$message->status = SmsStatus::ERROR;
 				$this->nack($amqpMessage, false);
+			}
 		}
 
 		if (!$message->save()){
