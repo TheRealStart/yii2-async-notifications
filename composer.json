@@ -12,7 +12,7 @@
     "autoload" : {
         "psr-4": {"TRS\\AsyncNotification\\": ""}
     },
-    "minimum-stability":"stable",
+    "minimum-stability":"dev",
     "require": {
         "ext-curl": "*",
         "videlalvaro/php-amqplib": "2.6.0",
