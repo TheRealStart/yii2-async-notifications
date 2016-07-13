@@ -32,57 +32,50 @@ class Mail extends MessageReader implements \TRS\AsyncNotification\components\am
 
 	public function read(AMQPMessage $amqpMessage)
 	{
-		$mailProxy = MailProxy::getInstance();
-		$message = $mailProxy->getEmptyMessage();
-		$data = $this->getMessageBody($amqpMessage);
-		$messageId = $data['id'];
+		$id = $this->getMessageBody($amqpMessage)['id'];
 
 		/** @var MailMessage $messageData */
-		$messageData = MailMessage::find()->where(['id' => $messageId])->one();
-
-		if (!$messageData) {
+		if (is_null($model = MailMessage::find()->where(['id' => $id])->one())) {
 			$this->nack($amqpMessage, false);
-			throw new \InvalidArgumentException(sprintf('Message with "%d" doesn\'t exist', $messageId));
+			throw new \InvalidArgumentException(sprintf('Message with "%d" doesn\'t exist', $id));
+		}
+
+		if (empty($model->body_text) && empty($model->body_html)) {
+			$this->nack($amqpMessage, false);
+			throw new ErrorException(sprintf('No text set for message with id "%d"', $id));
 		}
 
 		/** @var MailRecipient[] $recipients */
-		$recipients = $messageData->getMailRecipients()->all();
-
-		if (empty($recipients)) {
+		if (empty($recipients = $model->getMailRecipients()->all())) {
 			$this->nack($amqpMessage, false);
-			throw new ErrorException(sprintf('No recipients for message with id "%d"', $messageId));
+			throw new ErrorException(sprintf('No recipients for message with id "%d"', $id));
 		}
 
-		$message->setFrom([$messageData->from]);
-		$message->setSubject($messageData->subject);
-
+		$mailProxy = MailProxy::getInstance();
 		foreach ($recipients as $recipient) {
+			/** @var  yii\swiftmailer\Message $message */
+			$message = $mailProxy->getEmptyMessage();
+
+			$message->setFrom([$model->from]);
+			$message->setSubject($model->subject);
+
 			$message->setTo([$recipient->email => $recipient->name]);
-		}
 
-		if (empty($messageData->body_text) && empty($messageData->body_html)) {
-			$this->nack($amqpMessage, false);
-			throw new ErrorException(sprintf('No text set for message with id "%d"', $messageId));
-		}
+			$message->setCharset('UTF-8');
 
-		$message->setCharset('UTF-8');
+			if (!empty($messageData->body_text))
+				$message->setTextBody($messageData->body_text);
 
-		if (!empty($messageData->body_text))
-			$message->setTextBody($messageData->body_text);
+			if (!empty($messageData->body_html))
+				$message->setHtmlBody($messageData->body_html);
 
-		if (!empty($messageData->body_html))
-			$message->setHtmlBody($messageData->body_html);
-
-		/** @var MailAttachment $attachments */
-		$attachments = $messageData->getMailAttachments()->all();
-
-		if (!empty($attachments)) {
-			foreach ($attachments as $attachment) {
-				//TODO Refactor this part when others will be finished. It is not working
-				$message->attach($attachment->name);
+			/** @var MailAttachment $attachment */
+			foreach ($model->getMailAttachments()->all() as $attachment){
+					//TODO Refactor this part when others will be finished. It is not working
+					$message->attach($attachment->name);
 			}
-		}
 
-		$mailProxy->send($message);
+			$mailProxy->send($message);
+		}
 	}
 } 

@@ -1,6 +1,6 @@
 {
     "name": "the-real-start/async-notifications",
-    "description": "Notification component to run async mail and push notifications sending.",
+    "description": "Notification component to run async mail,push and sms notifications sending.",
     "type": "package",
     "license": "GPLv3",
     "authors": [

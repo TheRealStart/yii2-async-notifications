@@ -122,7 +122,6 @@ class Mailer implements Provider
 		$message           = new MailMessage();
 		$params            = NotificationHelper::getMailParams();
 		$templateAlias     = str_replace('.', '/', $this->template);
-		$messageRecipients = [];
 		$viewPath          = $params->viewPath;
 		$subjectCategory   = $params->subjectCategory;
 
@@ -164,7 +163,6 @@ class Mailer implements Provider
 						$email, implode(', ', $model->getErrors(['email']))) );
 			}
 
-			$messageRecipients[] = $model;
 		}
 
 		Yii::$app->amqp->publish(['id' => $message->id], NotificationQueue::MAIL);
