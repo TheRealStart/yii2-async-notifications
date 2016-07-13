@@ -19,6 +19,7 @@ use yii\base\ErrorException;
 class Sms extends MessageReader{
 	public function read(AMQPMessage $amqpMessage)
 	{
+		/** @var SmsMessage $message */
 		if (is_null($message = SmsMessage::findOne(['id'=>($id = $this->getMessageBody($amqpMessage)['id']), 'status'=>[SmsStatus::_NEW, SmsStatus::ERROR]]))){
 			throw new \InvalidArgumentException(sprintf('Message by id %d doesn\'t exist', $id));
 		}
@@ -26,6 +27,7 @@ class Sms extends MessageReader{
 		/** @var SmsApi $smsApi */
 		$smsApi = Yii::$app->get('sms');
 
+		$message->try_count++;
 		if (($message->status = $smsApi->send($message)) == SmsStatus::ERROR){
 			if ($message->try_count >= $smsApi->resendLimit)
 				$message->status = SmsStatus::CANCELED;
