@@ -56,9 +56,6 @@ class SmsApi extends Component
      * @return SmsTransport
      */
     protected function createTransport(array $config){
-        // TODO: Do not forget to define default transport class
-        if (!isset($config['class']))
-            $config['class'] = '';
         return $this->createSwiftObject($config);
     }
 
