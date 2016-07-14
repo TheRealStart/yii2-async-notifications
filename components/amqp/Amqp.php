@@ -52,12 +52,12 @@ class Amqp extends Component
     /**
      * @var string
      */
-    public $user;
+    public $user = 'guest';
 
     /**
      * @var string
      */
-    public $password;
+    public $password = 'guest';
 
     /**
      * @var string
