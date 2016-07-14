@@ -9,7 +9,6 @@ namespace TRS\AsyncNotification\console\controllers;
 
 use TRS\AsyncNotification\components\amqp\Amqp;
 use TRS\AsyncNotification\components\amqp\readers\Mail;
-use PhpAmqpLib\Connection\AMQPStreamConnection;
 use TRS\AsyncNotification\components\amqp\readers\Sms;
 use TRS\AsyncNotification\components\enums\NotificationQueue;
 use yii\console\Controller;
