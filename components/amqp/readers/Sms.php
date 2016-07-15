@@ -15,6 +15,7 @@ use TRS\AsyncNotification\components\enums\SmsStatus;
 use TRS\AsyncNotification\components\SmsApi;
 use TRS\AsyncNotification\models\SmsMessage;
 use yii\base\ErrorException;
+use Yii;
 
 class Sms extends MessageReader{
 	public function read(AMQPMessage $amqpMessage)
