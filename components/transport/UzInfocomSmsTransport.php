@@ -31,6 +31,7 @@ class UzInfocomSmsTransport implements SmsTransport {
             $ch = curl_init($this->url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, [
                 'login' => $this->login,
@@ -40,9 +41,22 @@ class UzInfocomSmsTransport implements SmsTransport {
             ]);
             $response = curl_exec($ch);
             $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            if (curl_errno($ch)!=0) {
+                Yii::error(sprintf('request to api fails with "%s"', curl_error($ch)), __METHOD__);
+                return $sent;
+            }
             curl_close($ch);
-
-            Yii::info(sprintf('Response %s Code %d', $response, $httpCode), __METHOD__);
+            if ( $httpCode == 200 ){
+               $object = new \SimpleXMLElement($response);
+               if (intval($object->result['status'])==0) {
+                    $sent++;
+                    Yii::info(sprintf('sms "%s" to "%s" sended',$message->body_text, $model->phone), __METHOD__);
+               }else{
+                   Yii::warning(sprintf('sms "%s" to "%s" fails with "%s"', $message->body_text, $model->phone, $object->result), __METHOD__);
+               }
+            }else{
+                Yii::warning(sprintf('http code different than 200. %d %s', $httpCode, $response), __METHOD__);
+            }
         }
         return $sent;
     }

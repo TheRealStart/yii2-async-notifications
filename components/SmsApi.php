@@ -31,12 +31,6 @@ class SmsApi extends Component
      */
     public function send(SmsMessage $message)
     {
-        $rcpList = [];
-        /** @var SmsRecipient $model */
-        foreach ($message->getSmsRecipients()->all() as $model)
-            $rcpList[]=$model->getCleanPhone();
-
-        Yii::info(sprintf('Sending sms "%s" to "%s"',$message->body_text, implode(', ',$rcpList)), __METHOD__);
         return $this->getTransport()->send($message)>0;
     }
 
