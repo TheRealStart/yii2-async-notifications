@@ -37,7 +37,7 @@ class Sms extends MessageReader{
 				$message->status = SmsStatus::CANCELED;
 			else {
 				$message->status = SmsStatus::ERROR;
-				$this->nack($amqpMessage, false);
+				$this->nack($amqpMessage);
 			}
 		}
 
