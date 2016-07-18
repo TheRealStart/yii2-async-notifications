@@ -52,12 +52,12 @@ class Amqp extends Component
     /**
      * @var string
      */
-    public $user;
+    public $user = 'guest';
 
     /**
      * @var string
      */
-    public $password;
+    public $password = 'guest';
 
     /**
      * @var string
@@ -67,12 +67,12 @@ class Amqp extends Component
     /**
      * @var string
      */
-    public $exchange = 'smart-city';
+    public $exchange;
 
     /**
      * @var string
      */
-    public $exchangeType = 'direct';
+    public $exchangeType = self::TYPE_DIRECT;
 
     /**
      * @var array

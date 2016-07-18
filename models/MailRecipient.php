@@ -2,7 +2,6 @@
 
 namespace TRS\AsyncNotification\models;
 
-use Yii;
 use \TRS\AsyncNotification\models\base\MailRecipient as BaseMailRecipient;
 use yii\helpers\ArrayHelper;
 
