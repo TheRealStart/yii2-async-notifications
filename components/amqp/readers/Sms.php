@@ -33,16 +33,17 @@ class Sms extends MessageReader{
 		if ($smsApi->send($message)){
 			$message->status = SmsStatus::SEND;
 		}else{
-			if ($message->try_count >= $smsApi->resendLimit)
-				$message->status = SmsStatus::CANCELED;
-			else {
-				$message->status = SmsStatus::ERROR;
-				$this->nack($amqpMessage);
-			}
+			$message->status = $message->try_count >= $smsApi->resendLimit ? SmsStatus::CANCELED : SmsStatus::ERROR;
 		}
 
 		if (!$message->save()){
 			throw new ErrorException('Failed to update message status');
+		}
+
+		if ($message->status == SmsStatus::ERROR){
+			$this->nack($amqpMessage);
+		}else{
+			$this->ack($amqpMessage);
 		}
 
 		return true;
