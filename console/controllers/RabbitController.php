@@ -9,6 +9,7 @@ namespace TRS\AsyncNotification\console\controllers;
 
 use TRS\AsyncNotification\components\amqp\Amqp;
 use TRS\AsyncNotification\components\amqp\readers\Mail;
+use TRS\AsyncNotification\components\amqp\readers\Push;
 use TRS\AsyncNotification\components\amqp\readers\Sms;
 use TRS\AsyncNotification\components\enums\NotificationQueue;
 use yii\console\Controller;
@@ -25,7 +26,8 @@ class RabbitController extends Controller
     {
         $this->interpreters = [
             NotificationQueue::MAIL => Mail::className(),
-            NotificationQueue::SMS => Sms::className(),
+            NotificationQueue::SMS  => Sms::className(),
+            NotificationQueue::PUSH => Push::className(),
         ];
     }
     public function actionRun()
