@@ -5,7 +5,7 @@ use yii\db\Migration;
 
 class m160212_132037_add_phone_id_table extends Migration
 {
-    const PUSH_DEVICE = 'push_device';
+    const PUSH_DEVICE = '{{%push_device}}';
     public function safeUp()
     {
         $this->createTable(static::PUSH_DEVICE, [
