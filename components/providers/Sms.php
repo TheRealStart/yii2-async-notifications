@@ -18,7 +18,7 @@ use Yii;
 class Sms
 {
     /**
-     * @param $text body message
+     * @param string $text body message
      * @param string|array $recipient one or more phone numbers
      * @return bool
      */
