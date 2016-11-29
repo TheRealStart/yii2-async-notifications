@@ -12,13 +12,7 @@
     "autoload" : {
         "psr-4": {"TRS\\AsyncNotification\\": ""}
     },
-    "minimum-stability":"dev",
-    "repositories": [
-        {
-            "type": "git",
-            "url": "ssh://git@git.therealstart.com:50210/sandbox/enums.git"
-        }
-    ],
+    "minimum-stability":"stable",
     "require": {
         "ext-curl": "*",
         "videlalvaro/php-amqplib": "2.6.0",
