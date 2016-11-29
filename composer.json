@@ -1,25 +1,26 @@
 {
     "name": "the-real-start/async-notifications",
     "description": "Notification component to run async mail,push and sms notifications sending.",
-    "type": "package",
-    "license": "GPLv3",
+    "type": "yii2-extension",
+    "keywords": [ "yii", "yii2", "extension", "notification", "push", "email", "async" ],
+    "homepage": "https://github.com/TheRealStart/yii2-async-notifications",
+    "license": "MIT",
+    "support": {
+        "email": "alegz@therealstart.com",
+        "source": "https://github.com/TheRealStart/yii2-async-notifications"
+    },
     "authors": [
         {
-            "name": "Alegz",
+            "name": "Alegzander",
             "email": "alegz@therealstart.com"
         }
     ],
     "autoload" : {
         "psr-4": {"TRS\\AsyncNotification\\": ""}
     },
-    "minimum-stability":"dev",
-    "repositories": [
-        {
-            "type": "git",
-            "url": "ssh://git@git.therealstart.com:50210/sandbox/enums.git"
-        }
-    ],
+    "minimum-stability":"stable",
     "require": {
+        "php": ">=5.4.0",
         "ext-curl": "*",
         "videlalvaro/php-amqplib": "2.6.0",
         "yiisoft/yii2-swiftmailer": " *",

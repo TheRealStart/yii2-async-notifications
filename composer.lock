@@ -4,9 +4,147 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a962840824bb99a9db715a0bc39f9982",
-    "content-hash": "f18dca06ac17295e29925af710787f40",
+    "content-hash": "ff3cc4b0910b6fbcad9760c531e4f62d",
     "packages": [
+        {
+            "name": "bower-asset/jquery",
+            "version": "2.2.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jquery/jquery-dist.git",
+                "reference": "c0185ab7c75aab88762c5aae780b9d83b80eda72"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jquery/jquery-dist/zipball/c0185ab7c75aab88762c5aae780b9d83b80eda72",
+                "reference": "c0185ab7c75aab88762c5aae780b9d83b80eda72",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "dist/jquery.js",
+                "bower-asset-ignore": [
+                    "package.json"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "keywords": [
+                "browser",
+                "javascript",
+                "jquery",
+                "library"
+            ]
+        },
+        {
+            "name": "bower-asset/jquery.inputmask",
+            "version": "3.2.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RobinHerbots/Inputmask.git",
+                "reference": "5a72c563b502b8e05958a524cdfffafe9987be38"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RobinHerbots/Inputmask/zipball/5a72c563b502b8e05958a524cdfffafe9987be38",
+                "reference": "5a72c563b502b8e05958a524cdfffafe9987be38",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jquery": ">=1.7"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "./dist/inputmask/inputmask.js"
+                ],
+                "bower-asset-ignore": [
+                    "**/*",
+                    "!dist/*",
+                    "!dist/inputmask/*",
+                    "!dist/min/*",
+                    "!dist/min/inputmask/*",
+                    "!extra/bindings/*",
+                    "!extra/dependencyLibs/*",
+                    "!extra/phone-codes/*"
+                ]
+            },
+            "license": [
+                "http://opensource.org/licenses/mit-license.php"
+            ],
+            "description": "jquery.inputmask is a jquery plugin which create an input mask.",
+            "keywords": [
+                "form",
+                "input",
+                "inputmask",
+                "jquery",
+                "mask",
+                "plugins"
+            ]
+        },
+        {
+            "name": "bower-asset/punycode",
+            "version": "v1.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bestiejs/punycode.js.git",
+                "reference": "38c8d3131a82567bfef18da09f7f4db68c84f8a3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bestiejs/punycode.js/zipball/38c8d3131a82567bfef18da09f7f4db68c84f8a3",
+                "reference": "38c8d3131a82567bfef18da09f7f4db68c84f8a3",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "punycode.js",
+                "bower-asset-ignore": [
+                    "coverage",
+                    "tests",
+                    ".*",
+                    "component.json",
+                    "Gruntfile.js",
+                    "node_modules",
+                    "package.json"
+                ]
+            }
+        },
+        {
+            "name": "bower-asset/yii2-pjax",
+            "version": "v2.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yiisoft/jquery-pjax.git",
+                "reference": "60728da6ade5879e807a49ce59ef9a72039b8978"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yiisoft/jquery-pjax/zipball/60728da6ade5879e807a49ce59ef9a72039b8978",
+                "reference": "60728da6ade5879e807a49ce59ef9a72039b8978",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jquery": ">=1.8"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "./jquery.pjax.js",
+                "bower-asset-ignore": [
+                    ".travis.yml",
+                    "Gemfile",
+                    "Gemfile.lock",
+                    "CONTRIBUTING.md",
+                    "vendor/",
+                    "script/",
+                    "test/"
+                ]
+            },
+            "license": [
+                "MIT"
+            ]
+        },
         {
             "name": "bryglen/yii2-apns-gcm",
             "version": "1.0.4",
@@ -48,20 +186,20 @@
                 " gcm",
                 "yii2"
             ],
-            "time": "2016-03-13 17:18:14"
+            "time": "2016-03-13T17:18:14+00:00"
         },
         {
             "name": "cebe/markdown",
-            "version": "0.9.x-dev",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cebe/markdown.git",
-                "reference": "6a3c3737e9c1f4670f39a771f77b536126788ad2"
+                "reference": "c30eb5e01fe021cc5bba2f9ee0eeef96d4931166"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cebe/markdown/zipball/6a3c3737e9c1f4670f39a771f77b536126788ad2",
-                "reference": "6a3c3737e9c1f4670f39a771f77b536126788ad2",
+                "url": "https://api.github.com/repos/cebe/markdown/zipball/c30eb5e01fe021cc5bba2f9ee0eeef96d4931166",
+                "reference": "c30eb5e01fe021cc5bba2f9ee0eeef96d4931166",
                 "shasum": ""
             },
             "require": {
@@ -69,7 +207,9 @@
                 "php": ">=5.4.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "3.7.*"
+                "cebe/indent": "*",
+                "facebook/xhprof": "*@dev",
+                "phpunit/phpunit": "4.1.*"
             },
             "bin": [
                 "bin/markdown"
@@ -77,8 +217,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev",
-                    "dev-0.9.x-dev": "0.9.x-dev"
+                    "dev-master": "1.1.x-dev"
                 }
             },
             "autoload": {
@@ -95,10 +234,10 @@
                     "name": "Carsten Brandt",
                     "email": "mail@cebe.cc",
                     "homepage": "http://cebe.cc/",
-                    "role": "Core framework development"
+                    "role": "Creator"
                 }
             ],
-            "description": "A super fast highly extensible markdown parser for PHP",
+            "description": "A super fast, highly extensible markdown parser for PHP",
             "homepage": "https://github.com/cebe/markdown#readme",
             "keywords": [
                 "extensible",
@@ -107,61 +246,7 @@
                 "markdown",
                 "markdown-extra"
             ],
-            "time": "2014-03-05 16:30:51"
-        },
-        {
-            "name": "doctrine/lexer",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/doctrine/lexer.git",
-                "reference": "83893c552fd2045dd78aef794c31e694c37c0b8c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/lexer/zipball/83893c552fd2045dd78aef794c31e694c37c0b8c",
-                "reference": "83893c552fd2045dd78aef794c31e694c37c0b8c",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.2"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Doctrine\\Common\\Lexer\\": "lib/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Roman Borschel",
-                    "email": "roman@code-factory.org"
-                },
-                {
-                    "name": "Guilherme Blanco",
-                    "email": "guilhermeblanco@gmail.com"
-                },
-                {
-                    "name": "Johannes Schmitt",
-                    "email": "schmittjoh@gmail.com"
-                }
-            ],
-            "description": "Base library for a lexer that can be used in Top-Down, Recursive Descent Parsers.",
-            "homepage": "http://www.doctrine-project.org",
-            "keywords": [
-                "lexer",
-                "parser"
-            ],
-            "time": "2014-09-09 13:34:57"
+            "time": "2016-09-14T20:40:20+00:00"
         },
         {
             "name": "duccio/apns-php",
@@ -199,74 +284,20 @@
                 "notification",
                 "push"
             ],
-            "time": "2016-02-07 21:17:51"
-        },
-        {
-            "name": "egulias/email-validator",
-            "version": "2.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/egulias/EmailValidator.git",
-                "reference": "19811e00829958f06d9bfbfeb0d0e6b7aaff3767"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/19811e00829958f06d9bfbfeb0d0e6b7aaff3767",
-                "reference": "19811e00829958f06d9bfbfeb0d0e6b7aaff3767",
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/lexer": "^1.0.1",
-                "php": ">= 5.5"
-            },
-            "require-dev": {
-                "dominicsayers/isemail": "dev-master",
-                "phpunit/phpunit": "^4.8.0",
-                "satooshi/php-coveralls": "dev-master"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Egulias\\EmailValidator\\": "EmailValidator"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Eduardo Gulias Davis"
-                }
-            ],
-            "description": "A library for validating emails against several RFCs",
-            "homepage": "https://github.com/egulias/EmailValidator",
-            "keywords": [
-                "email",
-                "emailvalidation",
-                "emailvalidator",
-                "validation",
-                "validator"
-            ],
-            "time": "2016-07-12 13:22:10"
+            "time": "2016-02-07T21:17:51+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
-            "version": "v4.6.0",
+            "version": "v4.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ezyang/htmlpurifier.git",
-                "reference": "6f389f0f25b90d0b495308efcfa073981177f0fd"
+                "reference": "d0c392f77d2f2a3dcf7fcb79e2a1e2b8804e75b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/6f389f0f25b90d0b495308efcfa073981177f0fd",
-                "reference": "6f389f0f25b90d0b495308efcfa073981177f0fd",
+                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/d0c392f77d2f2a3dcf7fcb79e2a1e2b8804e75b2",
+                "reference": "d0c392f77d2f2a3dcf7fcb79e2a1e2b8804e75b2",
                 "shasum": ""
             },
             "require": {
@@ -297,7 +328,7 @@
             "keywords": [
                 "html"
             ],
-            "time": "2013-11-30 08:25:19"
+            "time": "2016-07-16T12:58:58+00:00"
         },
         {
             "name": "php-gcm/php-gcm",
@@ -341,25 +372,24 @@
                 "library",
                 "php"
             ],
-            "time": "2015-05-06 13:25:45"
+            "time": "2015-05-06T13:25:45+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "dev-master",
+            "version": "v5.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "7e782c78d3d6927593f9bb9155cb428a7a52d080"
+                "reference": "545ce9136690cea74f98f86fbb9c92dd9ab1a756"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/7e782c78d3d6927593f9bb9155cb428a7a52d080",
-                "reference": "7e782c78d3d6927593f9bb9155cb428a7a52d080",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/545ce9136690cea74f98f86fbb9c92dd9ab1a756",
+                "reference": "545ce9136690cea74f98f86fbb9c92dd9ab1a756",
                 "shasum": ""
             },
             "require": {
-                "egulias/email-validator": "~2.0",
-                "php": ">=5.5.0"
+                "php": ">=5.3.3"
             },
             "require-dev": {
                 "mockery/mockery": "~0.9.1"
@@ -367,7 +397,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "6.0-dev"
+                    "dev-master": "5.4-dev"
                 }
             },
             "autoload": {
@@ -395,15 +425,21 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2016-07-09 18:35:08"
+            "time": "2016-11-24T01:01:23+00:00"
         },
         {
             "name": "the-real-start/enums",
-            "version": "dev-master",
+            "version": "v1.0.3",
             "source": {
                 "type": "git",
-                "url": "ssh://git@git.therealstart.com:50210/sandbox/enums.git",
-                "reference": "694d046d06dd80a54c7128add0c1aa4591f2c674"
+                "url": "https://github.com/TheRealStart/php-enums.git",
+                "reference": "cc2dad1ffb26c8f82767cee963b88c734d1d3a9f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/TheRealStart/php-enums/zipball/cc2dad1ffb26c8f82767cee963b88c734d1d3a9f",
+                "reference": "cc2dad1ffb26c8f82767cee963b88c734d1d3a9f",
+                "shasum": ""
             },
             "type": "package",
             "autoload": {
@@ -411,17 +447,21 @@
                     "TRS\\Enum\\": ""
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
             "authors": [
                 {
                     "name": "Alegz",
-                    "email": "alexander.aka.alegz@gmail.com"
+                    "email": "alegz@therealstart.com"
                 }
             ],
-            "description": "Base enums.",
-            "time": "2016-07-15 10:58:38"
+            "description": "Simple php tool to work with enums",
+            "keywords": [
+                "enum"
+            ],
+            "time": "2016-08-23T21:34:51+00:00"
         },
         {
             "name": "videlalvaro/php-amqplib",
@@ -476,84 +516,44 @@
                 "rabbitmq"
             ],
             "abandoned": "php-amqplib/php-amqplib",
-            "time": "2015-09-23 02:25:31"
-        },
-        {
-            "name": "yiisoft/jquery",
-            "version": "2.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/yiisoft/jquery.git",
-                "reference": "bc09bbbc8b40cf89812036188b6f94ae7627c73c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/jquery/zipball/bc09bbbc8b40cf89812036188b6f94ae7627c73c",
-                "reference": "bc09bbbc8b40cf89812036188b6f94ae7627c73c",
-                "shasum": ""
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "jQuery JavaScript Library",
-            "homepage": "http://jquery.com",
-            "abandoned": true,
-            "time": "2014-05-07 05:00:09"
-        },
-        {
-            "name": "yiisoft/jquery-pjax",
-            "version": "v2.0.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/yiisoft/jquery-pjax.git",
-                "reference": "6818718408086db6bdcf33649cecb86b6b4f9b67"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/jquery-pjax/zipball/6818718408086db6bdcf33649cecb86b6b4f9b67",
-                "reference": "6818718408086db6bdcf33649cecb86b6b4f9b67",
-                "shasum": ""
-            },
-            "require": {
-                "yiisoft/jquery": ">=1.8"
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "pushState + ajax = pjax, a forked maintainted by the Yii Framework core developers",
-            "homepage": "https://github.com/yiisoft/jquery-pjax#readme",
-            "abandoned": "install via bower instead",
-            "time": "2015-11-10 10:06:36"
+            "time": "2015-09-23T02:25:31+00:00"
         },
         {
             "name": "yiisoft/yii2",
-            "version": "2.0.0-beta",
+            "version": "2.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "2a71e361b3cebf872ecaba45feaf23a7d2a1491d"
+                "reference": "5bfcb7a6dfa9771e2248eb8c4448613330f343ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/2a71e361b3cebf872ecaba45feaf23a7d2a1491d",
-                "reference": "2a71e361b3cebf872ecaba45feaf23a7d2a1491d",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/5bfcb7a6dfa9771e2248eb8c4448613330f343ff",
+                "reference": "5bfcb7a6dfa9771e2248eb8c4448613330f343ff",
                 "shasum": ""
             },
             "require": {
-                "cebe/markdown": "0.9.*",
+                "bower-asset/jquery": "2.2.*@stable | 2.1.*@stable | 1.11.*@stable | 1.12.*@stable",
+                "bower-asset/jquery.inputmask": "~3.2.2",
+                "bower-asset/punycode": "1.3.*",
+                "bower-asset/yii2-pjax": "~2.0.1",
+                "cebe/markdown": "~1.0.0 | ~1.1.0",
+                "ext-ctype": "*",
                 "ext-mbstring": "*",
-                "ezyang/htmlpurifier": "4.6.*",
+                "ezyang/htmlpurifier": "~4.6",
                 "lib-pcre": "*",
                 "php": ">=5.4.0",
-                "yiisoft/jquery": "~2.0 | ~1.10",
-                "yiisoft/jquery-pjax": "*",
-                "yiisoft/yii2-composer": "*"
+                "yiisoft/yii2-composer": "~2.0.4"
             },
+            "bin": [
+                "yii"
+            ],
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "yii\\": ""
@@ -597,6 +597,11 @@
                     "name": "Paul Klimov",
                     "email": "klimov.paul@gmail.com",
                     "role": "Core framework development"
+                },
+                {
+                    "name": "Dmitry Naumenko",
+                    "email": "d.naumenko.a@gmail.com",
+                    "role": "Core framework development"
                 }
             ],
             "description": "Yii PHP Framework Version 2",
@@ -605,20 +610,20 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2014-04-13 21:58:59"
+            "time": "2016-10-20T12:02:50+00:00"
         },
         {
             "name": "yiisoft/yii2-composer",
-            "version": "dev-master",
+            "version": "2.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-composer.git",
-                "reference": "e882cc327a6935a41f2e8665b9ef0317f6852d4d"
+                "reference": "7452fd908a5023b8bb5ea1b123a174ca080de464"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-composer/zipball/e882cc327a6935a41f2e8665b9ef0317f6852d4d",
-                "reference": "e882cc327a6935a41f2e8665b9ef0317f6852d4d",
+                "url": "https://api.github.com/repos/yiisoft/yii2-composer/zipball/7452fd908a5023b8bb5ea1b123a174ca080de464",
+                "reference": "7452fd908a5023b8bb5ea1b123a174ca080de464",
                 "shasum": ""
             },
             "require": {
@@ -652,25 +657,25 @@
                 "extension installer",
                 "yii2"
             ],
-            "time": "2016-06-05 20:34:32"
+            "time": "2016-02-06T00:49:24+00:00"
         },
         {
             "name": "yiisoft/yii2-swiftmailer",
-            "version": "2.0.3",
+            "version": "2.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-swiftmailer.git",
-                "reference": "cb5f0a70d871b409bef7333fc3e0d262fb57eb5c"
+                "reference": "26b900767f1031ff3a4668dfa36c10595875f0a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-swiftmailer/zipball/cb5f0a70d871b409bef7333fc3e0d262fb57eb5c",
-                "reference": "cb5f0a70d871b409bef7333fc3e0d262fb57eb5c",
+                "url": "https://api.github.com/repos/yiisoft/yii2-swiftmailer/zipball/26b900767f1031ff3a4668dfa36c10595875f0a5",
+                "reference": "26b900767f1031ff3a4668dfa36c10595875f0a5",
                 "shasum": ""
             },
             "require": {
-                "swiftmailer/swiftmailer": "*",
-                "yiisoft/yii2": "*"
+                "swiftmailer/swiftmailer": "~5.0",
+                "yiisoft/yii2": "~2.0.4"
             },
             "type": "yii2-extension",
             "extra": {
@@ -702,12 +707,12 @@
                 "swiftmailer",
                 "yii2"
             ],
-            "time": "2015-03-01 06:22:44"
+            "time": "2016-09-09T11:48:11+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
