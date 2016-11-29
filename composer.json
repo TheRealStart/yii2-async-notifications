@@ -1,5 +1,5 @@
 {
-    "name": "the-real-start/async-notifications",
+    "name": "the-real-start/yii2-async-notifications",
     "description": "Notification component to run async mail,push and sms notifications sending.",
     "type": "yii2-extension",
     "keywords": [ "yii", "yii2", "extension", "notification", "push", "email", "async" ],
