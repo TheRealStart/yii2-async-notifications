@@ -10,10 +10,9 @@ namespace TRS\AsyncNotification\components;
 
 use TRS\AsyncNotification\components\interfaces\SmsTransport;
 use TRS\AsyncNotification\models\SmsMessage;
-use TRS\AsyncNotification\models\SmsRecipient;
+use Yii;
 use yii\base\Component;
 use yii\base\InvalidConfigException;
-use Yii;
 
 class SmsApi extends Component
 {
@@ -31,7 +30,7 @@ class SmsApi extends Component
      */
     public function send(SmsMessage $message)
     {
-        return $this->getTransport()->send($message)>0;
+        return $this->getTransport()->send($message) > 0;
     }
 
     /**
@@ -49,32 +48,34 @@ class SmsApi extends Component
      * @param array $config
      * @return SmsTransport
      */
-    protected function createTransport(array $config){
+    protected function createTransport(array $config)
+    {
         return $this->createSwiftObject($config);
     }
 
     /**
      * @return object
      */
-    protected function createSwiftObject(array $config){
-        if (!isset($config['class']))
+    protected function createSwiftObject(array $config)
+    {
+        if (!isset( $config['class'] ))
             throw new InvalidConfigException('Object configuration must be an array containing a "class" element.');
 
-        if (isset($config['constructArgs'])){
+        if (isset( $config['constructArgs'] )) {
             $args = [];
-            foreach ($config['constructArgs'] as $value){
-                if (is_array($value) && isset($value['class'])){
-                    $args[]=$this->createSwiftObject($value);
-                }else{
-                    $args[]=$value;
+            foreach ($config['constructArgs'] as $value) {
+                if (is_array($value) && isset( $value['class'] )) {
+                    $args[] = $this->createSwiftObject($value);
+                } else {
+                    $args[] = $value;
                 }
             }
             $object = Yii::createObject($config['class'], $args);
-        }else{
+        } else {
             $object = Yii::createObject($config['class']);
         }
 
-        unset($config['class']);
+        unset( $config['class'] );
 
         if (count($config)) {
             $reflection = new \ReflectionObject($object);
@@ -91,7 +92,7 @@ class SmsApi extends Component
      */
     public function getTransport()
     {
-        if (!is_object($this->_transport)){
+        if (!is_object($this->_transport)) {
             $this->_transport = $this->createTransport($this->_transport);
         }
 

@@ -9,39 +9,40 @@
 namespace TRS\AsyncNotification\components\interfaces;
 
 
-interface Provider {
-	/**
-	 * @param string $template
-	 * @param array $data
-	 */
-	public function __construct($template, array $data = []);
+interface Provider
+{
+    /**
+     * @param string $template
+     * @param array $data
+     */
+    public function __construct($template, array $data = []);
 
-	/**
-	 * @param array $recipient
-	 * @return void
-	 */
-	public function addTo(array $recipient);
+    /**
+     * @param array $recipient
+     * @return void
+     */
+    public function addTo(array $recipient);
 
-	/**
-	 * @param $path
-	 * @return void
-	 */
-	public function attach($path);
+    /**
+     * @param $path
+     * @return void
+     */
+    public function attach($path);
 
-	/**
-	 * @param $path
-	 * @return void
-	 */
-	public function embed($path);
+    /**
+     * @param $path
+     * @return void
+     */
+    public function embed($path);
 
-	/**
-	 * @param array $data
-	 * @return void
-	 */
-	public function addData(array $data);
+    /**
+     * @param array $data
+     * @return void
+     */
+    public function addData(array $data);
 
-	/**
-	 * @return void
-	 */
-	public function send();
+    /**
+     * @return void
+     */
+    public function send();
 } 

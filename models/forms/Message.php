@@ -13,16 +13,16 @@ use yii\base\Model;
 
 class Message extends Model
 {
-	public $recipients;
-	public $template;
-	public $attachments;
+    public $recipients;
+    public $template;
+    public $attachments;
 
-	public function rules()
-	{
-		return [
-			[['recipients', 'template'], 'required'],
-			[['recipients'], 'each', 'rule' => ['email', 'allowEmpty' => false], 'allowEmpty' => false],
-			[['attachments'], 'each', 'rule' => ['file']]
-		];
-	}
+    public function rules()
+    {
+        return [
+            [ [ 'recipients', 'template' ], 'required' ],
+            [ [ 'recipients' ], 'each', 'rule' => [ 'email', 'allowEmpty' => false ], 'allowEmpty' => false ],
+            [ [ 'attachments' ], 'each', 'rule' => [ 'file' ] ]
+        ];
+    }
 } 

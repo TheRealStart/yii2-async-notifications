@@ -12,5 +12,5 @@ use TRS\Enum\Enum;
 class DeviceOS extends Enum
 {
     const ANDROID = 'android';
-    const IOS = 'ios';
+    const IOS     = 'ios';
 }

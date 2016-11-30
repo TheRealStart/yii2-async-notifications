@@ -9,8 +9,9 @@
 namespace TRS\AsyncNotification\components\enums;
 
 
-class NotificationQueue {
-	const MAIL = 'mail';
-	const PUSH = 'push';
-	const SMS  = 'sms';
+class NotificationQueue
+{
+    const MAIL = 'mail';
+    const PUSH = 'push';
+    const SMS  = 'sms';
 }

@@ -17,15 +17,17 @@ use yii\base\Model;
  *
  * Can be changed to ActiveRecord for storing parameters in database
  */
-class MailParameters extends Model {
-	public $from;
-	public $subjectCategory = 'mail/subject';
-	public $viewPath;
+class MailParameters extends Model
+{
+    public $from;
+    public $subjectCategory = 'mail/subject';
+    public $viewPath;
 
-	public function rules () {
-		return [
-			[['from', 'subjectCategory', 'viewPath'], 'required'],
-			[['from'], 'email', 'skipOnEmpty' => false]
-		];
-	}
+    public function rules()
+    {
+        return [
+            [ [ 'from', 'subjectCategory', 'viewPath' ], 'required' ],
+            [ [ 'from' ], 'email', 'skipOnEmpty' => false ]
+        ];
+    }
 } 

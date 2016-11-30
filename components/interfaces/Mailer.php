@@ -22,23 +22,24 @@ use yii\mail\BaseMessage;
  * I do not need it in this case because messages are already rendered to database and just required
  * to be set correctly in message object that can be build without compose method.
  */
-interface Mailer {
-	/**
-	 * @param BaseMessage $message
-	 * @return bool
-	 */
-	public function send(BaseMessage $message);
+interface Mailer
+{
+    /**
+     * @param BaseMessage $message
+     * @return bool
+     */
+    public function send(BaseMessage $message);
 
-	/**
-	 * @param BaseMessage[] $messages
-	 * @return int
-	 */
-	public function sendMultiple(array $messages);
+    /**
+     * @param BaseMessage[] $messages
+     * @return int
+     */
+    public function sendMultiple(array $messages);
 
-	/**
-	 * @return BaseMessage
-	 *
-	 * Returns new instance of message class that is required or current provider
-	 */
-	public function getEmptyMessage();
+    /**
+     * @return BaseMessage
+     *
+     * Returns new instance of message class that is required or current provider
+     */
+    public function getEmptyMessage();
 } 

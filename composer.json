@@ -1,31 +1,41 @@
 {
-    "name": "the-real-start/yii2-async-notifications",
-    "description": "Notification component to run async mail,push and sms notifications sending.",
-    "type": "yii2-extension",
-    "keywords": [ "yii", "yii2", "extension", "notification", "push", "email", "async" ],
-    "homepage": "https://github.com/TheRealStart/yii2-async-notifications",
-    "license": "MIT",
-    "support": {
-        "email": "alegz@therealstart.com",
-        "source": "https://github.com/TheRealStart/yii2-async-notifications"
-    },
-    "authors": [
-        {
-            "name": "Alegzander",
-            "email": "alegz@therealstart.com"
-        }
-    ],
-    "autoload" : {
-        "psr-4": {"TRS\\AsyncNotification\\": ""}
-    },
-    "minimum-stability":"stable",
-    "require": {
-        "php": ">=5.4.0",
-        "ext-curl": "*",
-        "ext-amqp": "*",
-        "yiisoft/yii2-swiftmailer": " *",
-        "bryglen/yii2-apns-gcm": "~1.0.4",
-        "the-real-start/enums": "*",
-        "php-amqplib/php-amqplib": "^2.6"
+  "name": "the-real-start/yii2-async-notifications",
+  "description": "Notification component to run async mail,push and sms notifications sending.",
+  "type": "yii2-extension",
+  "keywords": [
+    "yii",
+    "yii2",
+    "extension",
+    "notification",
+    "push",
+    "email",
+    "async"
+  ],
+  "homepage": "https://github.com/TheRealStart/yii2-async-notifications",
+  "license": "MIT",
+  "support": {
+    "email": "alegz@therealstart.com",
+    "source": "https://github.com/TheRealStart/yii2-async-notifications"
+  },
+  "authors": [
+    {
+      "name": "Alegzander",
+      "email": "alegz@therealstart.com"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "TRS\\AsyncNotification\\": ""
+    }
+  },
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=5.4.0",
+    "ext-curl": "*",
+    "ext-amqp": "*",
+    "yiisoft/yii2-swiftmailer": " *",
+    "bryglen/yii2-apns-gcm": "~1.0.4",
+    "the-real-start/enums": "*",
+    "php-amqplib/php-amqplib": "^2.6"
+  }
 }

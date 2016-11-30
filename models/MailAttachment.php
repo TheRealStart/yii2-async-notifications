@@ -3,8 +3,7 @@
 namespace TRS\AsyncNotification\models;
 
 use TRS\AsyncNotification\components\validators\FileExists;
-use Yii;
-use \TRS\AsyncNotification\models\base\MailAttachment as BaseMailAttachment;
+use TRS\AsyncNotification\models\base\MailAttachment as BaseMailAttachment;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -12,17 +11,17 @@ use yii\helpers\ArrayHelper;
  */
 class MailAttachment extends BaseMailAttachment
 {
-	public static function tableName()
-	{
-		return '{{%' . parent::tableName() . '}}';
-	}
+    public static function tableName()
+    {
+        return '{{%' . parent::tableName() . '}}';
+    }
 
-	public function rules()
-	{
-		return ArrayHelper::merge(parent::rules(),
-			[['name'], FileExists::className(), 'skipOnEmpty' => false]
-		);
-	}
+    public function rules()
+    {
+        return ArrayHelper::merge(parent::rules(),
+            [ [ 'name' ], FileExists::className(), 'skipOnEmpty' => false ]
+        );
+    }
 
 
 }

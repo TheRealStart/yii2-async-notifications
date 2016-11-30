@@ -11,9 +11,9 @@ namespace TRS\AsyncNotification\components\enums;
 
 class MailStatus
 {
-	const _NEW       = 'new';
-	const IN_PROCESS = 'in_process';
-	const SEND       = 'sent';
-	const ERROR      = 'error';
-	const CANCELED   = 'canceled';
+    const _NEW       = 'new';
+    const IN_PROCESS = 'in_process';
+    const SEND       = 'sent';
+    const ERROR      = 'error';
+    const CANCELED   = 'canceled';
 } 

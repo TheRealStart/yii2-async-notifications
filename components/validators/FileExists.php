@@ -11,14 +11,15 @@ namespace TRS\AsyncNotification\components\validators;
 
 use yii\validators\Validator;
 
-class FileExists extends Validator {
-	protected function validateValue($value)
-	{
-		$realPath = realpath($value);
+class FileExists extends Validator
+{
+    protected function validateValue($value)
+    {
+        $realPath = realpath($value);
 
-		if ($realPath)
-			return file_exists($realPath);
+        if ($realPath)
+            return file_exists($realPath);
 
-		return false;
-	}
+        return false;
+    }
 } 
