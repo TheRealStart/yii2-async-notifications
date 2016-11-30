@@ -17,7 +17,6 @@ class MailRecipient extends \yii\db\ActiveRecord
 {
 
 
-
     /**
      * @inheritdoc
      */
@@ -32,9 +31,9 @@ class MailRecipient extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['message_id', 'email'], 'required'],
-            [['message_id'], 'integer'],
-            [['email', 'name'], 'string', 'max' => 255]
+            [ [ 'message_id', 'email' ], 'required' ],
+            [ [ 'message_id' ], 'integer' ],
+            [ [ 'email', 'name' ], 'string', 'max' => 255 ]
         ];
     }
 
@@ -45,8 +44,8 @@ class MailRecipient extends \yii\db\ActiveRecord
     {
         return [
             'message_id' => Yii::t('app', 'Message ID'),
-            'email' => Yii::t('app', 'Email'),
-            'name' => Yii::t('app', 'Name'),
+            'email'      => Yii::t('app', 'Email'),
+            'name'       => Yii::t('app', 'Name'),
         ];
     }
 
@@ -55,10 +54,8 @@ class MailRecipient extends \yii\db\ActiveRecord
      */
     public function getMessage()
     {
-        return $this->hasOne(\TRS\AsyncNotification\models\MailMessage::className(), ['id' => 'message_id']);
+        return $this->hasOne(\TRS\AsyncNotification\models\MailMessage::className(), [ 'id' => 'message_id' ]);
     }
-
-
 
 
 }

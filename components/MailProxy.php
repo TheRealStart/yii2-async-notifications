@@ -14,43 +14,48 @@ use Yii;
 use yii\mail\BaseMessage;
 use yii\swiftmailer\Message;
 
-class MailProxy implements Mailer {
-	/** @var  MailProxy */
-	private static $instance;
+class MailProxy implements Mailer
+{
+    /** @var  MailProxy */
+    private static $instance;
 
-	private $mailer;
+    private $mailer;
 
-	private function __construct() {
-		$this->mailer = Yii::$app->getMailer();
-	}
+    private function __construct()
+    {
+        $this->mailer = Yii::$app->getMailer();
+    }
 
-	/**
-	 * @inheritdoc
-	 */
-	public function send(BaseMessage $message) {
-		return $this->mailer->send($message);
-	}
+    /**
+     * @inheritdoc
+     */
+    public function send(BaseMessage $message)
+    {
+        return $this->mailer->send($message);
+    }
 
-	/**
-	 * @inheritdoc
-	 */
-	public function sendMultiple(array $messages)
-	{
-		return $this->mailer->sendMultiple($messages);
-	}
+    /**
+     * @inheritdoc
+     */
+    public function sendMultiple(array $messages)
+    {
+        return $this->mailer->sendMultiple($messages);
+    }
 
-	/**
-	 * @inheritdoc
-	 */
-	public function getEmptyMessage() {
-		return new Message();
-	}
+    /**
+     * @inheritdoc
+     */
+    public function getEmptyMessage()
+    {
+        return new Message();
+    }
 
 
-	public static function getInstance() {
-		if (!isset(static::$instance))
-			static::$instance = new MailProxy();
+    public static function getInstance()
+    {
+        if (!isset( static::$instance ))
+            static::$instance = new MailProxy();
 
-		return static::$instance;
-	}
+        return static::$instance;
+    }
 }

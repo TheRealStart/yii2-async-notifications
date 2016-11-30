@@ -24,7 +24,6 @@ class MailMessage extends \yii\db\ActiveRecord
 {
 
 
-
     /**
      * @inheritdoc
      */
@@ -39,10 +38,10 @@ class MailMessage extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['subject', 'from', 'body_text', 'body_html'], 'required'],
-            [['body_text', 'body_html'], 'string'],
-            [['created_at', 'updated_at'], 'safe'],
-            [['status', 'subject', 'from'], 'string', 'max' => 255]
+            [ [ 'subject', 'from', 'body_text', 'body_html' ], 'required' ],
+            [ [ 'body_text', 'body_html' ], 'string' ],
+            [ [ 'created_at', 'updated_at' ], 'safe' ],
+            [ [ 'status', 'subject', 'from' ], 'string', 'max' => 255 ]
         ];
     }
 
@@ -52,12 +51,12 @@ class MailMessage extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'status' => Yii::t('app', 'Status'),
-            'subject' => Yii::t('app', 'Subject'),
-            'from' => Yii::t('app', 'From'),
-            'body_text' => Yii::t('app', 'Body Text'),
-            'body_html' => Yii::t('app', 'Body Html'),
+            'id'         => Yii::t('app', 'ID'),
+            'status'     => Yii::t('app', 'Status'),
+            'subject'    => Yii::t('app', 'Subject'),
+            'from'       => Yii::t('app', 'From'),
+            'body_text'  => Yii::t('app', 'Body Text'),
+            'body_html'  => Yii::t('app', 'Body Html'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
         ];
@@ -68,7 +67,7 @@ class MailMessage extends \yii\db\ActiveRecord
      */
     public function getMailAttachments()
     {
-        return $this->hasMany(\TRS\AsyncNotification\models\MailAttachment::className(), ['message_id' => 'id']);
+        return $this->hasMany(\TRS\AsyncNotification\models\MailAttachment::className(), [ 'message_id' => 'id' ]);
     }
 
     /**
@@ -76,7 +75,7 @@ class MailMessage extends \yii\db\ActiveRecord
      */
     public function getMailMessageErrors()
     {
-        return $this->hasMany(\TRS\AsyncNotification\models\MailMessageError::className(), ['message_id' => 'id']);
+        return $this->hasMany(\TRS\AsyncNotification\models\MailMessageError::className(), [ 'message_id' => 'id' ]);
     }
 
     /**
@@ -84,10 +83,8 @@ class MailMessage extends \yii\db\ActiveRecord
      */
     public function getMailRecipients()
     {
-        return $this->hasMany(\TRS\AsyncNotification\models\MailRecipient::className(), ['message_id' => 'id']);
+        return $this->hasMany(\TRS\AsyncNotification\models\MailRecipient::className(), [ 'message_id' => 'id' ]);
     }
-
-
 
 
 }

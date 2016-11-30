@@ -7,10 +7,10 @@ class m160212_132037_add_phone_id_table extends Migration
     public function safeUp()
     {
         $this->createTable('{{%push_device}}', [
-            'id' => $this->primaryKey(),
-            'type' => $this->string()->notNull(),
-            'device_id' => $this->string()->notNull(),
-            'owner_id'  => $this->string(),
+            'id'         => $this->primaryKey(),
+            'type'       => $this->string()->notNull(),
+            'device_id'  => $this->string()->notNull(),
+            'owner_id'   => $this->string(),
             'created_at' => $this->timestamp()->notNull(),
         ]);
 

@@ -10,7 +10,8 @@ namespace TRS\AsyncNotification\components\interfaces;
 
 use TRS\AsyncNotification\models\SmsMessage;
 
-interface SmsTransport {
+interface SmsTransport
+{
     /**
      * @param SmsMessage $message
      * @return int

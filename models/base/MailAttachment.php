@@ -18,7 +18,6 @@ class MailAttachment extends \yii\db\ActiveRecord
 {
 
 
-
     /**
      * @inheritdoc
      */
@@ -33,9 +32,9 @@ class MailAttachment extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['message_id'], 'integer'],
-            [['created_at'], 'safe'],
-            [['name'], 'string', 'max' => 2048]
+            [ [ 'message_id' ], 'integer' ],
+            [ [ 'created_at' ], 'safe' ],
+            [ [ 'name' ], 'string', 'max' => 2048 ]
         ];
     }
 
@@ -45,9 +44,9 @@ class MailAttachment extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
+            'id'         => Yii::t('app', 'ID'),
             'message_id' => Yii::t('app', 'Message ID'),
-            'name' => Yii::t('app', 'Name'),
+            'name'       => Yii::t('app', 'Name'),
             'created_at' => Yii::t('app', 'Created At'),
         ];
     }
@@ -57,10 +56,8 @@ class MailAttachment extends \yii\db\ActiveRecord
      */
     public function getMessage()
     {
-        return $this->hasOne(\TRS\AsyncNotification\models\MailMessage::className(), ['id' => 'message_id']);
+        return $this->hasOne(\TRS\AsyncNotification\models\MailMessage::className(), [ 'id' => 'message_id' ]);
     }
-
-
 
 
 }

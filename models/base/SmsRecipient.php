@@ -20,7 +20,6 @@ abstract class SmsRecipient extends \yii\db\ActiveRecord
 {
 
 
-
     /**
      * @inheritdoc
      */
@@ -41,10 +40,10 @@ abstract class SmsRecipient extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['message_id', 'phone'], 'required'],
-            [['message_id'], 'integer'],
-            [['phone'], 'string', 'max' => 255],
-            [['message_id'], 'exist', 'skipOnError' => true, 'targetClass' => SmsMessage::className(), 'targetAttribute' => ['message_id' => 'id']]
+            [ [ 'message_id', 'phone' ], 'required' ],
+            [ [ 'message_id' ], 'integer' ],
+            [ [ 'phone' ], 'string', 'max' => 255 ],
+            [ [ 'message_id' ], 'exist', 'skipOnError' => true, 'targetClass' => SmsMessage::className(), 'targetAttribute' => [ 'message_id' => 'id' ] ]
         ];
     }
 
@@ -54,9 +53,9 @@ abstract class SmsRecipient extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app','ID'),
-            'message_id' => Yii::t('app','Message ID'),
-            'phone' => Yii::t('app','Phone'),
+            'id'         => Yii::t('app', 'ID'),
+            'message_id' => Yii::t('app', 'Message ID'),
+            'phone'      => Yii::t('app', 'Phone'),
         ];
     }
 
@@ -65,10 +64,8 @@ abstract class SmsRecipient extends \yii\db\ActiveRecord
      */
     public function getMessage()
     {
-        return $this->hasOne(\TRS\AsyncNotification\models\SmsMessage::className(), ['id' => 'message_id']);
+        return $this->hasOne(\TRS\AsyncNotification\models\SmsMessage::className(), [ 'id' => 'message_id' ]);
     }
-
-
 
 
 }

@@ -2,7 +2,7 @@
 
 namespace TRS\AsyncNotification\models;
 
-use \TRS\AsyncNotification\models\base\SmsMessage as BaseSmsMessage;
+use TRS\AsyncNotification\models\base\SmsMessage as BaseSmsMessage;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -10,11 +10,12 @@ use yii\helpers\ArrayHelper;
  */
 class SmsMessage extends BaseSmsMessage
 {
-    public function rules(){
+    public function rules()
+    {
         return ArrayHelper::merge(
             parent::rules(),
             [
-                [['body_text'], 'trim']
+                [ [ 'body_text' ], 'trim' ]
             ]
         );
     }

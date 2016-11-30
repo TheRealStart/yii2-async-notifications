@@ -2,7 +2,7 @@
 
 namespace TRS\AsyncNotification\models;
 
-use \TRS\AsyncNotification\models\base\SmsRecipient as BaseSmsRecipient;
+use TRS\AsyncNotification\models\base\SmsRecipient as BaseSmsRecipient;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -10,17 +10,19 @@ use yii\helpers\ArrayHelper;
  */
 class SmsRecipient extends BaseSmsRecipient
 {
-    public function rules(){
+    public function rules()
+    {
         return ArrayHelper::merge(
             parent::rules(),
             [
-                [['phone'], 'trim']
+                [ [ 'phone' ], 'trim' ]
             ]
         );
     }
 
-    public function getCleanPhone($addPlus=true){
-        return ($addPlus ? '+' : '').str_replace(['+','-',' ','(',')'], '', $this->phone);
+    public function getCleanPhone($addPlus = true)
+    {
+        return ( $addPlus ? '+' : '' ) . str_replace([ '+', '-', ' ', '(', ')' ], '', $this->phone);
     }
 
 }

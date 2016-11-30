@@ -7,12 +7,12 @@
 
 namespace TRS\AsyncNotification\components\amqp;
 
-use yii\base\Component;
-use yii\base\Exception;
-use yii\helpers\Json;
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
+use yii\base\Component;
+use yii\base\Exception;
+use yii\helpers\Json;
 
 
 /**
@@ -23,10 +23,10 @@ use PhpAmqpLib\Message\AMQPMessage;
  */
 class Amqp extends Component
 {
-    const TYPE_TOPIC = 'topic';
-    const TYPE_DIRECT = 'direct';
-    const TYPE_HEADERS = 'headers';
-    const TYPE_FANOUT = 'fanout';
+    const TYPE_TOPIC             = 'topic';
+    const TYPE_DIRECT            = 'direct';
+    const TYPE_HEADERS           = 'headers';
+    const TYPE_FANOUT            = 'fanout';
     const TYPE_X_DELAYED_MESSAGE = 'x-delayed-message';
 
     /**
@@ -85,10 +85,10 @@ class Amqp extends Component
     public function init()
     {
         parent::init();
-        if (empty($this->user)) {
+        if (empty( $this->user )) {
             throw new Exception("Parameter 'user' was not set for AMQP connection.");
         }
-        if (empty(self::$ampqConnection)) {
+        if (empty( self::$ampqConnection )) {
             self::$ampqConnection = new AMQPStreamConnection(
                 $this->host,
                 $this->port,
@@ -112,7 +112,7 @@ class Amqp extends Component
     public function publish($message, $queue)
     {
         $connection = $this->getConnection();
-        $channel = $connection->channel();
+        $channel    = $connection->channel();
 
         $channel->queue_declare($queue, false, true, false, true);
         $channel

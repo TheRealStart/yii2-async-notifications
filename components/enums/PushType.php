@@ -10,5 +10,5 @@ namespace TRS\AsyncNotification\components\enums;
 class PushType
 {
     const ANDROID = 'android';
-    const IOS = 'ios';
+    const IOS     = 'ios';
 }

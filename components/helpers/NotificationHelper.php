@@ -9,24 +9,26 @@
 namespace TRS\AsyncNotification\components\helpers;
 
 use TRS\AsyncNotification\models\MailParameters;
-use \Yii;
+use Yii;
 use yii\base\InvalidParamException;
 
-class NotificationHelper {
-	/**
-	 * @return MailParameters
-	 * @throws \yii\base\InvalidParamException
-	 */
-	public static function getMailParams() {
-		$appParams = Yii::$app->params['notification']['mail'];
-		$model = new MailParameters();
-		$model->load(['MailParameters' => $appParams]);
+class NotificationHelper
+{
+    /**
+     * @return MailParameters
+     * @throws \yii\base\InvalidParamException
+     */
+    public static function getMailParams()
+    {
+        $appParams = Yii::$app->params['notification']['mail'];
+        $model     = new MailParameters();
+        $model->load([ 'MailParameters' => $appParams ]);
 
-		if (!$model->validate()) {
-			throw new InvalidParamException(
-				'Parameters are invalid. See errors below.' . Error::processToString($model->getErrors()));
-		}
+        if (!$model->validate()) {
+            throw new InvalidParamException(
+                'Parameters are invalid. See errors below.' . Error::processToString($model->getErrors()));
+        }
 
-		return $model;
-	}
+        return $model;
+    }
 } 

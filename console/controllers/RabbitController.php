@@ -7,20 +7,20 @@
 
 namespace TRS\AsyncNotification\console\controllers;
 
+use PhpAmqpLib\Message\AMQPMessage;
 use TRS\AsyncNotification\components\amqp\Amqp;
+use TRS\AsyncNotification\components\amqp\MessageReader;
 use TRS\AsyncNotification\components\amqp\readers\Mail;
 use TRS\AsyncNotification\components\amqp\readers\Push;
 use TRS\AsyncNotification\components\amqp\readers\Sms;
 use TRS\AsyncNotification\components\enums\NotificationQueue;
-use yii\console\Controller;
-use PhpAmqpLib\Message\AMQPMessage;
 use Yii;
-use TRS\AsyncNotification\components\amqp\MessageReader;
+use yii\console\Controller;
 
 class RabbitController extends Controller
 {
     public $defaultAction = 'run';
-    public $interpreters = [];
+    public $interpreters  = [];
 
     public function init()
     {
@@ -30,23 +30,24 @@ class RabbitController extends Controller
             NotificationQueue::PUSH => Push::className(),
         ];
     }
+
     public function actionRun()
     {
         /** @var Amqp $amqp */
-        $amqp = Yii::$app->amqp;
+        $amqp       = Yii::$app->amqp;
         $connection = $amqp->getConnection();
-        $channel = $connection->channel();
+        $channel    = $connection->channel();
 
-        foreach($this->interpreters as $key => $value)
+        foreach ($this->interpreters as $key => $value)
             $channel->queue_declare($key, false, true, false, true);
 
         $channel->exchange_declare($amqp->exchange, $amqp->exchangeType, false, true, false, false, false, $amqp->exchangeArgs);
 
-        foreach($this->interpreters as $key => $value)
+        foreach ($this->interpreters as $key => $value)
             $channel->queue_bind($key, $amqp->exchange, $key);
 
-        foreach($this->interpreters as $key => $value)
-            $channel->basic_consume($key, '', false, false, false, false, [$this, 'callback']);
+        foreach ($this->interpreters as $key => $value)
+            $channel->basic_consume($key, '', false, false, false, false, [ $this, 'callback' ]);
 
         while (count($channel->callbacks)) {
             $channel->wait();
@@ -55,14 +56,14 @@ class RabbitController extends Controller
 
     public function callback(AMQPMessage $msg)
     {
-		/** @var string $routingKey */
+        /** @var string $routingKey */
         $routingKey = $msg->delivery_info['routing_key'];
 
-		if (empty($this->interpreters[$routingKey]))
-			throw new \InvalidArgumentException(Yii::t('error', 'Invalid routing key {key}', ['key' => $routingKey]));
+        if (empty( $this->interpreters[$routingKey] ))
+            throw new \InvalidArgumentException(Yii::t('error', 'Invalid routing key {key}', [ 'key' => $routingKey ]));
 
-		/** @var MessageReader $reader */
-		$reader = new $this->interpreters[$routingKey];
-		$reader->read($msg);
+        /** @var MessageReader $reader */
+        $reader = new $this->interpreters[$routingKey];
+        $reader->read($msg);
     }
 }

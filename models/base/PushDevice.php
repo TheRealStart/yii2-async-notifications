@@ -19,7 +19,6 @@ abstract class PushDevice extends \yii\db\ActiveRecord
 {
 
 
-
     /**
      * @inheritdoc
      */
@@ -34,10 +33,10 @@ abstract class PushDevice extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['type', 'device_id'], 'required'],
-            [['created_at'], 'safe'],
-            [['type', 'owner_id'], 'string', 'max' => 255],
-            [['device_id'], 'string', 'max' => 255]
+            [ [ 'type', 'device_id' ], 'required' ],
+            [ [ 'created_at' ], 'safe' ],
+            [ [ 'type', 'owner_id' ], 'string', 'max' => 255 ],
+            [ [ 'device_id' ], 'string', 'max' => 255 ]
         ];
     }
 
@@ -47,15 +46,13 @@ abstract class PushDevice extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'type' => Yii::t('app', 'Type'),
-            'device_id' => Yii::t('app', 'Device ID'),
-            'owner_id' => Yii::t('app', 'Owner ID'),
+            'id'         => Yii::t('app', 'ID'),
+            'type'       => Yii::t('app', 'Type'),
+            'device_id'  => Yii::t('app', 'Device ID'),
+            'owner_id'   => Yii::t('app', 'Owner ID'),
             'created_at' => Yii::t('app', 'Created At'),
         ];
     }
-
-
 
 
 }

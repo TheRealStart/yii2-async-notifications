@@ -18,7 +18,6 @@ class MailMessageError extends \yii\db\ActiveRecord
 {
 
 
-
     /**
      * @inheritdoc
      */
@@ -33,10 +32,10 @@ class MailMessageError extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['message_id'], 'integer'],
-            [['sending_at'], 'safe'],
-            [['error'], 'required'],
-            [['error'], 'string', 'max' => 255]
+            [ [ 'message_id' ], 'integer' ],
+            [ [ 'sending_at' ], 'safe' ],
+            [ [ 'error' ], 'required' ],
+            [ [ 'error' ], 'string', 'max' => 255 ]
         ];
     }
 
@@ -46,10 +45,10 @@ class MailMessageError extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
+            'id'         => Yii::t('app', 'ID'),
             'message_id' => Yii::t('app', 'Message ID'),
             'sending_at' => Yii::t('app', 'Sending At'),
-            'error' => Yii::t('app', 'Error'),
+            'error'      => Yii::t('app', 'Error'),
         ];
     }
 
@@ -58,10 +57,8 @@ class MailMessageError extends \yii\db\ActiveRecord
      */
     public function getMessage()
     {
-        return $this->hasOne(\TRS\AsyncNotification\models\MailMessage::className(), ['id' => 'message_id']);
+        return $this->hasOne(\TRS\AsyncNotification\models\MailMessage::className(), [ 'id' => 'message_id' ]);
     }
-
-
 
 
 }

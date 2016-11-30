@@ -15,7 +15,7 @@ class Push
 {
     private $text;
     private $payloadData = [];
-    private $devices = [];
+    private $devices     = [];
 
     /**
      * @param string $text
@@ -37,11 +37,13 @@ class Push
      * @param string $device_id
      * @param string $device_os
      */
-    public function addTo($device_id, $device_os){
-        $this->devices[]=[$device_id, $device_os];
+    public function addTo($device_id, $device_os)
+    {
+        $this->devices[] = [ $device_id, $device_os ];
     }
 
-    public function send(){
-        Yii::$app->amqp->publish(['text' => $this->text, 'payloadData' => $this->payloadData, 'devices' => $this->devices], NotificationQueue::PUSH);
+    public function send()
+    {
+        Yii::$app->amqp->publish([ 'text' => $this->text, 'payloadData' => $this->payloadData, 'devices' => $this->devices ], NotificationQueue::PUSH);
     }
 }
