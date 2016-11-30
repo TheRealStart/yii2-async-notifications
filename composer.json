@@ -22,9 +22,10 @@
     "require": {
         "php": ">=5.4.0",
         "ext-curl": "*",
-        "videlalvaro/php-amqplib": "2.6.0",
+        "ext-amqp": "*",
         "yiisoft/yii2-swiftmailer": " *",
         "bryglen/yii2-apns-gcm": "~1.0.4",
-        "the-real-start/enums": "*"
+        "the-real-start/enums": "*",
+        "php-amqplib/php-amqplib": "^2.6"
     }
 }
