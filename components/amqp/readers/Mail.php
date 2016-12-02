@@ -19,6 +19,7 @@ use TRS\AsyncNotification\models\MailMessageError;
 use TRS\AsyncNotification\models\MailRecipient;
 use Yii;
 use yii\base\ErrorException;
+use yii\base\NotSupportedException;
 use yii\mail\MailerInterface;
 use yii\helpers\ArrayHelper;
 
@@ -87,7 +88,11 @@ class Mail extends MessageReader implements \TRS\AsyncNotification\components\am
             throw new ErrorException($error);
         }
 
-        $message->setCharset('UTF-8');
+        try {
+            $message->setCharset('UTF-8');
+        } catch ( NotSupportedException $error ) {
+            //Just ignore. Met this problem with mailgun mailer
+        }
 
         if (!empty( $messageData->body_text ))
             $message->setTextBody($messageData->body_text);
