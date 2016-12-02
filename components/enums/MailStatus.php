@@ -13,7 +13,8 @@ class MailStatus
 {
     const _NEW       = 'new';
     const IN_PROCESS = 'in_process';
-    const SEND       = 'sent';
+    const SENT       = 'sent';
     const ERROR      = 'error';
+    const FAIL       = 'fail';
     const CANCELED   = 'canceled';
 } 
