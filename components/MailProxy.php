@@ -12,7 +12,6 @@ namespace TRS\AsyncNotification\components;
 use TRS\AsyncNotification\components\interfaces\Mailer;
 use Yii;
 use yii\mail\BaseMessage;
-use yii\swiftmailer\Message;
 
 class MailProxy implements Mailer
 {
@@ -47,7 +46,7 @@ class MailProxy implements Mailer
      */
     public function getEmptyMessage()
     {
-        return new Message();
+        return $this->mailer->compose();
     }
 
 
