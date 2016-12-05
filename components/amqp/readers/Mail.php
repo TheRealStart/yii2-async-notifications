@@ -32,17 +32,10 @@ class Mail extends MessageReader implements \TRS\AsyncNotification\components\am
     /** @var  MailMessage */
     private $messageData;
 
-    private $defaultAllowedNumErrors = 3;
-
-    private $allowedNumErrors;
-
     public function init()
     {
         parent::init();
 
-        $notificationParams = ArrayHelper::getValue(\Yii::$app->params, 'notification', []);
-        $this->allowedNumErrors = ArrayHelper::getValue($notificationParams,
-            'allowedNumErrors', $this->defaultAllowedNumErrors);
         $this->mailer = Yii::$app->getMailer();
     }
 
@@ -123,15 +116,11 @@ class Mail extends MessageReader implements \TRS\AsyncNotification\components\am
     }
 
     protected function selectMessageData($messageId) {
+        $tableName = MailMessage::tableName();
+
         /** @var MailMessage $result */
-        $this->messageData = MailMessage::findSendable()->andWhere([ 'id' => $messageId ])->one();
-
-        $errors = $this->messageData->getMailMessageErrors()->all();
-
-        //Do not proceed messages that has more than allowed number of errors
-        if ( $errors && count($errors) >= $this->allowedNumErrors ) {
-            $this->messageData = null;
-        }
+        $this->messageData = MailMessage::findSendable()->andWhere([ $tableName . '.id' => $messageId ])
+            ->one();
     }
 
     /**
