@@ -20,6 +20,7 @@ use TRS\AsyncNotification\models\MailRecipient;
 use Yii;
 use yii\base\ErrorException;
 use yii\base\NotSupportedException;
+use yii\db\Expression;
 use yii\mail\MailerInterface;
 use yii\helpers\ArrayHelper;
 
@@ -31,17 +32,10 @@ class Mail extends MessageReader implements \TRS\AsyncNotification\components\am
     /** @var  MailMessage */
     private $messageData;
 
-    private $defaultAllowedNumErrors = 3;
-
-    private $allowedNumErrors;
-
     public function init()
     {
         parent::init();
 
-        $notificationParams = ArrayHelper::getValue(\Yii::$app->params, 'notification', []);
-        $this->allowedNumErrors = ArrayHelper::getValue($notificationParams,
-            'allowedNumErrors', $this->defaultAllowedNumErrors);
         $this->mailer = Yii::$app->getMailer();
     }
 
@@ -60,7 +54,6 @@ class Mail extends MessageReader implements \TRS\AsyncNotification\components\am
         if (!$messageData) {
             $this->nack($amqpMessage, false);
             $error = sprintf('Message with "%d" doesn\'t exist', $messageId);
-            $this->processingError($error);
             throw new \InvalidArgumentException($error);
         }
 
@@ -74,19 +67,19 @@ class Mail extends MessageReader implements \TRS\AsyncNotification\components\am
             throw new ErrorException($error);
         }
 
-        $message->setFrom([ $messageData->from ]);
-        $message->setSubject($messageData->subject);
-
-        foreach ($recipients as $recipient) {
-            $message->setTo([ $recipient->email => $recipient->name ]);
-        }
-
         if (empty( $messageData->body_text ) && empty( $messageData->body_html )) {
             $this->nack($amqpMessage, false);
             $error = sprintf('No text set for message with id "%d"', $messageId);
             $this->processingError($error);
             throw new ErrorException($error);
         }
+
+        $message->setFrom($messageData->from);
+        $message->setSubject($messageData->subject);
+
+        $message->setTo(array_map(function( MailRecipient $recipient ) {
+            return $recipient->email;
+        }, $recipients));
 
         try {
             $message->setCharset('UTF-8');
@@ -123,16 +116,11 @@ class Mail extends MessageReader implements \TRS\AsyncNotification\components\am
     }
 
     protected function selectMessageData($messageId) {
+        $tableName = MailMessage::tableName();
+
         /** @var MailMessage $result */
-        $this->messageData = MailMessage::find()->where([ 'id' => $messageId,
-            'status' => [ MailStatus::_NEW, MailStatus::FAIL ] ])->one();
-
-        $errors = $this->messageData->getMailMessageErrors()->all();
-
-        //Do not proceed messages that has more than allowed number of errors
-        if ( $errors && count($errors) >= $this->allowedNumErrors ) {
-            $this->messageData = null;
-        }
+        $this->messageData = MailMessage::findSendable()->andWhere([ $tableName . '.id' => $messageId ])
+            ->one();
     }
 
     /**
@@ -146,6 +134,7 @@ class Mail extends MessageReader implements \TRS\AsyncNotification\components\am
     protected function processingFailed($reason = '') {
         $messageData = $this->getMessageData();
         $messageData->status = MailStatus::FAIL;
+        $messageData->updated_at = new Expression('NOW()');
         $messageData->save();
 
         $this->recordError($messageData->id, $reason);
@@ -154,6 +143,7 @@ class Mail extends MessageReader implements \TRS\AsyncNotification\components\am
     protected function processingError($reason) {
         $messageData = $this->getMessageData();
         $messageData->status = MailStatus::ERROR;
+        $messageData->updated_at = new Expression('NOW()');
         $messageData->save();
 
         $this->recordError($messageData->id, $reason);
@@ -162,13 +152,20 @@ class Mail extends MessageReader implements \TRS\AsyncNotification\components\am
     protected function processingSuccessful() {
         $messageData = $this->getMessageData();
         $messageData->status = MailStatus::SENT;
+        $messageData->updated_at = new Expression('NOW()');
         $messageData->save();
     }
 
     protected function recordError($messageId, $error) {
-        $error = new MailMessageError();
-        $error->message_id = $messageId;
-        $error->error = $error;
-        $error->save();
+        $mailError             = new MailMessageError();
+        $mailError->message_id = $messageId;
+        $mailError->error      = $error;
+        $mailError->sending_at = new Expression('NOW()');
+        $mailError->save();
     }
-} 
+
+    protected function buildMailName($email) {
+        $result = strstr($email, '@', true);
+        return mb_convert_case($result, MB_CASE_TITLE);
+    }
+}
